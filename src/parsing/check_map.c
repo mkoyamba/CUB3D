@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   macros.h                                           :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 12:59:36 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 14:16:04 by mkoyamba         ###   ########.fr       */
+/*   Created: 2022/09/05 20:05:56 by mkoyamba          #+#    #+#             */
+/*   Updated: 2022/09/05 20:31:53 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "../../include/parsing.h"
 
-//          ----------========== {   INCLUDES   } ==========----------
+char	*check_map(char **map)
+{
+	int	n;
+	int	i;
 
-# include "cub3d.h"
-
-//          ----------========== {     DEFS     } ==========----------
-
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-
-//parsing
-# define NORTH 0
-# define EAST 1
-# define SOUTH 2
-# define WEST 3
-
-#endif
+	n = 0;
+	while (map[n])
+	{
+		i = 0;
+		while (map[n][i])
+		{
+			if (map[n][i] == '0')
+			{
+				
+			}
+			i++;
+		}
+		n++;
+	}
+}
