@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 13:01:22 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 13:03:13 by mkoyamba         ###   ########.fr       */
+/*   Created: 2022/09/05 13:53:32 by mkoyamba          #+#    #+#             */
+/*   Updated: 2022/09/05 14:32:45 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "../include/cub3d.h"
 
-//          ----------========== {   INCLUDES   } ==========----------
+int	main(int argc, char **argv)
+{
+	t_map	*map;
+	int		result;
 
-# include "cub3d.h"
-
-//          ----------========== {     FCTS     } ==========----------
-
-
-
-#endif
+	map = parsing(argc, argv);
+	result = new_game(map);
+	return (result);
+}

@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 13:06:26 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:33:08 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <fcntl.h>
 # include <math.h>
 
-# include "../src/minilibx/mlx.h"
-# include "../src/libft/includes/libft.h"
+# include "../lib/minilibx/mlx.h"
+# include "../lib/libft/includes/libft.h"
 
 # include "main.h"
 # include "macros.h"
