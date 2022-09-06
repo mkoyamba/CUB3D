@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 17:31:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 19:44:59 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:54:17 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_path(char **readed)
 		return (1);
 }
 
-static int check_digit(char **colors)
+static int	check_digit(char **colors)
 {
 	int	n;
 	int	i;
@@ -100,7 +100,6 @@ int	check_map_pos(char **readed)
 		i--;
 	while (i >= 0)
 	{
-
 		if (ft_strncmp(readed[i], "NO ", 3) && ft_strncmp(readed[i], "SO ", 3)
 			&& ft_strncmp(readed[i], "WE ", 3)
 			&& ft_strncmp(readed[i], "EA ", 3) && ft_strncmp(readed[i], "F ", 2)

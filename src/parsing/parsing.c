@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:11:37 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 19:56:19 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:31:26 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,23 @@
 
 static void	set_struct(t_map *map, char **readed)
 {
+	int	n;
+
+	n = 0;
 	set_map_struct(map, readed);
+	while (map->map[n])
+	{
+		if (map->map[n][ft_strlen(map->map[n]) - 1] == '\n')
+			map->map[n][ft_strlen(map->map[n]) - 1] = '\0';
+		n++;
+	}
+	if (!set_map_infos(map, readed))
+	{
+		free_struct_map(map);
+		free_mat(readed);
+		error_out(E_MALLOC, 1);
+	}
+	free_mat(readed);
 }
 
 static char	*check_syntax(char **readed)
@@ -37,6 +53,7 @@ static t_map	*get_struct(int fd)
 {
 	t_map	*result;
 	char	**readed;
+	char	*syntax;
 
 	result = malloc(sizeof(t_map));
 	if (!result)
@@ -46,15 +63,17 @@ static t_map	*get_struct(int fd)
 	}
 	init_struct_map(result);
 	readed = read_map(fd);
-	if (!readed || !check_syntax(readed))
+	syntax = check_syntax(readed);
+	if (!readed || syntax)
 	{
 		close(fd);
 		free_struct_map(result);
 		if (!readed)
 			error_out(E_MALLOC, 1);
 		free_mat(readed);
-		error_out(check_syntax(readed), 1);
+		error_out(syntax, 1);
 	}
+	close(fd);
 	set_struct(result, readed);
 	return (result);
 }

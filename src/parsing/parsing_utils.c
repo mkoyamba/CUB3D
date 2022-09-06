@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:34:18 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 19:47:10 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:33:23 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,30 @@ void	free_struct_map(t_map *map)
 {
 	if (map->map)
 		free_mat(map->map);
-	if (map->north)
-		free(map->north);
-	if (map->south)
-		free(map->south);
-	if (map->east)
-		free(map->east);
-	if (map->west)
-		free(map->west);
+	if (map->textures[NORTH])
+		free(map->textures[NORTH]);
+	if (map->textures[SOUTH])
+		free(map->textures[SOUTH]);
+	if (map->textures[EAST])
+		free(map->textures[EAST]);
+	if (map->textures[WEST])
+		free(map->textures[WEST]);
+	if (map->vars.win)
+		mlx_destroy_window(map->vars.mlx, map->vars.win);
+	if (map->vars.mlx)
+		free(map->vars.mlx);
 	free(map);
 }
 
 void	init_struct_map(t_map *map)
 {
 	map->map = NULL;
-	map->north = NULL;
-	map->south = NULL;
-	map->east = NULL;
-	map->west = NULL;
+	map->vars.mlx = NULL;
+	map->vars.win = NULL;
+	map->textures[NORTH] = NULL;
+	map->textures[SOUTH] = NULL;
+	map->textures[EAST] = NULL;
+	map->textures[WEST] = NULL;
 }
 
 char	**read_map(int fd)

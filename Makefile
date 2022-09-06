@@ -6,7 +6,7 @@
 #    By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 12:29:55 by mkoyamba          #+#    #+#              #
-#    Updated: 2022/09/05 19:19:55 by mkoyamba         ###   ########.fr        #
+#    Updated: 2022/09/06 22:07:05 by mkoyamba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = cub3d
 CC = cc
 FLAGS = -Wall -Wextra -Werror -Imlx -fsanitize=address
-#MLX_FLAGS = -framework OpenGL -framework AppKit
+MLX_FLAGS = -framework OpenGL -framework AppKit
 INCLUDE = -I include/cub3d.h
 LIB = lib/libft/libft.a
 MLX = lib/minilibx/libmlx.a
@@ -31,10 +31,17 @@ SRC +=\
 	split_cub3d.c\
 	syntax_check.c\
 	syntax_utils.c\
+	setup.c\
+	check_map.c\
+	setup_utils.c\
 
 # exec
 SRC +=\
 	exec.c\
+	exec_utils.c\
+	events.c\
+	events_utils.c\
+	raycasting.c\
 
 # files
 SRC +=\
@@ -57,9 +64,9 @@ VPATH= $(shell find $(SRC_DIR) -type d)
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
-#	@make -C lib/minilibx
 	@make -C lib/libft
-	@$(CC) $(FLAGS) $(OBJ) $(LIB) -o $(NAME)
+	@make -sC lib/minilibx
+	@$(CC) $(FLAGS) $(MLX_FLAGS) $(OBJ) $(LIB) $(MLX) -o $(NAME)
 
 $(OBJ_DIR)%.o: %.c
 	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
@@ -70,14 +77,13 @@ $(OBJ_DIR):
 
 clean:
 	@make -C lib/libft clean
-#	@make -C lib/minilibx clean
 	@rm -f $(OBJ)
 	@rm -rf obj_dir
 	@printf "\e[0;31m[.o files deleted]\n\e[0;m"
 
 fclean: clean
 	@make -C lib/libft fclean
-#	@make -C lib/minilibx fclean
+	@make -C lib/minilibx clean
 	@rm -f $(NAME)
 	@printf "\e[0;31m[cub3d deleted]\n\e[0;m"
 

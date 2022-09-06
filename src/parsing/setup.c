@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 19:51:23 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 20:28:03 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:09:48 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ char	**matdup(char **mat)
 	return (result);
 }
 
-static void	set_player_start_postion(t_map *map, char *c)
+static void	set_player_start_postion(t_map *map, char *c, int i, int n)
 {
+	map->player.x = i;
+	map->player.y = n;
 	if (*c == 'N')
 		map->player.dir = NORTH;
 	else if (*c == 'E')
@@ -54,6 +56,7 @@ int	player_start_postion(t_map *map)
 	int	count;
 
 	n = 0;
+	count = 0;
 	while (map->map[n])
 	{
 		i = 0;
@@ -62,9 +65,7 @@ int	player_start_postion(t_map *map)
 			if (map->map[n][i] == 'N' || map->map[n][i] == 'E'
 				|| map->map[n][i] == 'W' || map->map[n][i] == 'S')
 			{
-				map->player.x = i;
-				map->player.y = n;
-				set_player_start_postion(map, &map[n][i]);
+				set_player_start_postion(map, &(map->map[n][i]), i, n);
 				count++;
 			}
 			i++;
@@ -72,13 +73,14 @@ int	player_start_postion(t_map *map)
 		n++;
 	}
 	if (count != 1)
-		return (0)
+		return (0);
 	return (1);
 }
 
-void	set_map_struct(t_map *map, readed)
+void	set_map_struct(t_map *map, char **readed)
 {
-	int	i;
+	int		i;
+	char	*check_map_str;
 
 	i = matlen(readed) - 1;
 	while (i >= 0 && valid_line_map(readed[i]))
@@ -87,16 +89,33 @@ void	set_map_struct(t_map *map, readed)
 	map->map = matdup(&readed[i]);
 	if (!map->map)
 	{
-		mat_free(readed);
+		free_mat(readed);
 		free_struct_map(map);
-		error_out(E_MALLOC, 1)
+		error_out(E_MALLOC, 1);
 	}
-	if (!player_start_postion(map) || check_map(map->map))
+	check_map_str = check_map(map->map);
+	if (!player_start_postion(map) || check_map_str)
 	{
-		mat_free(readed);
+		free_mat(readed);
 		free_struct_map(map);
-		if (!check_map(map->map))
-			error_out(E_PLAYER, 1)
-		error_out(check_map(map->map), 1)
+		if (!check_map_str)
+			error_out(E_PLAYER, 1);
+		error_out(check_map_str, 1);
 	}
+}
+
+int	set_map_infos(t_map *map, char **readed)
+{
+	char	*ceil_line;
+	char	*floor_line;
+
+	ceil_line = line_pos(readed, "C ");
+	floor_line = line_pos(readed, "F ");
+	if (!get_colors_parsing(floor_line + 1, map, 'f'))
+		return (0);
+	if (!get_colors_parsing(ceil_line + 1, map, 'c'))
+		return (0);
+	if (!get_textures_parsing(map, readed))
+		return (0);
+	return (1);
 }

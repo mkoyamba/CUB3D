@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 20:25:56 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/07 00:05:22 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@
 # define E_MAP_POS "invalid file content"
 # define E_MAP "invalid map content"
 # define E_PLAYER "missing or extra player(s) on map"
+# define E_CLOSED_MAP "the map is not closed"
+
+//exec
+# define SPEED 1
+# define TURN_SPEED 0.25
+# define CUBE_SIZE 0.5
 
 //          ----------========== {     FCTS     } ==========----------
 

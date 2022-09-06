@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:51:33 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/05 17:43:52 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:51:26 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,15 @@ static int	mk_word(const char *s, char c)
 	return (n);
 }
 
-static char	*mk_strpush(const char *s, char c, int *n)
+static void	mk_strpush_else(char *s, char c, int *i)
+{
+	while (s[*i] != '\0' && s[*i] != c)
+		*i += 1;
+	if (s[*i] == c)
+		*i += 1;
+}
+
+static char	*mk_strpush(char *s, char c, int *n)
 {
 	int		i;
 	int		g;
@@ -65,14 +73,9 @@ static char	*mk_strpush(const char *s, char c, int *n)
 	if (s[i] == c)
 		i++;
 	else
-	{
-		while (s[i] != '\0' && s[i] != c)
-			i++;
-		if (s[i] == c)
-			i++;
-	}
+		mk_strpush_else(s, c, &i);
 	len = i - *n;
-	tab = malloc((len + 1) * sizeof(char));
+	tab = ft_calloc(len + 1, sizeof(char));
 	if (!tab)
 		return (NULL);
 	while (g < len && s[*n] != '\0')
@@ -81,11 +84,10 @@ static char	*mk_strpush(const char *s, char c, int *n)
 		g++;
 		*n += 1;
 	}
-	tab[g] = '\0';
 	return (tab);
 }
 
-char	**split_cub3d(char const *s, char c)
+char	**split_cub3d(char *s, char c)
 {
 	char	**result;
 	int		n;
