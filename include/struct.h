@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:25 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/06 23:57:20 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/07 16:44:27 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ typedef struct s_player
 {
 	float	x;
 	float	y;
-	float	before_x;
-	float	before_y;
 	float	dir;
-	float	before_dir;
 	int		right;
 	int		left;
 	int		forward;
@@ -46,10 +43,15 @@ typedef struct s_map
 	char		**map;
 	char		*textures[4];
 	t_player	player;
-	int			floor[3];
-	int			ceiling[3];
+	int			floor;
+	int			ceiling;
 	t_vars		vars;
 	int			refresh;
+	char		*buffer;
+	int			pixel_bits;
+	int			line_bytes;
+	int			endian;
+	int			wall_color;
 }				t_map;
 
 #endif

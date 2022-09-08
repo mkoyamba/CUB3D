@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:03:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/06 22:07:18 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:14:25 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,10 @@ float	new_pos_x(t_map *map);
 float	new_pos_y(t_map *map);
 float	modulo_perso(float result, float modulo);
 void	raycast(int n, t_map *map, float raydir);
+float	get_move_dir(t_map *map);
+float	new_colision_x(t_map *map);
+float	new_colision_y(t_map *map);
+void	put_pixel(int x, int y, int color, t_map *map);
+void	get_wall_color(t_map *map, float raydir);
 
 #endif

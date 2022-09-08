@@ -6,11 +6,37 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:31:29 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/06 23:34:46 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:26:23 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+
+void	set_wall_color(t_map *map, int x, int y)
+{
+	int				pixel;
+	unsigned char	*color_buf;
+
+	color_buf = (unsigned char *)&(map->wall_color);
+	pixel = (y * map->line_bytes) + (x * 4);
+	map->buffer[pixel] = color_buf[3];
+	map->buffer[pixel + 1] = color_buf[2];
+	map->buffer[pixel + 2] = color_buf[1];
+	map->buffer[pixel + 3] = (unsigned char)0;
+}
+
+void	put_pixel(int x, int y, int color, t_map *map)
+{
+	int				pixel;
+	unsigned char	*color_buf;
+
+	pixel = (y * map->line_bytes) + (x * 4);
+	color_buf = (unsigned char *)&color;
+	map->buffer[pixel] = color_buf[3];
+	map->buffer[pixel + 1] = color_buf[2];
+	map->buffer[pixel + 2] = color_buf[1];
+	map->buffer[pixel + 3] = (unsigned char)0;
+}
 
 static void		ray_len_next(
 			t_map *map, float raydir, float *new_pos_x, float *new_pos_y)
@@ -51,81 +77,41 @@ static float	ray_len(t_map *map, float raydir)
 	return (len);
 }
 
-/*static void set_new_pos_intersection(
-	t_map *map, float raydir, float *new_pos_x, float *new_pos_y)
-{
-	float	len;
-
-	len = ray_len(map, raydir);
-	if (raydir >= NORTH && raydir < EAST)
-	{
-		*new_pos_x = map->player.x + len * sin(raydir * M_PI_2);
-		*new_pos_y = map->player.y - len * cos(raydir * M_PI_2);
-	}
-	else if (raydir >= EAST && raydir < SOUTH)
-	{
-		*new_pos_x = map->player.x + len * cos((raydir - 1) * M_PI_2);
-		*new_pos_y = map->player.y + len * sin((raydir - 1) * M_PI_2);
-	}
-	else if (raydir >= SOUTH && raydir < WEST)
-	{
-		*new_pos_x = map->player.x - len * sin((raydir - 2) * M_PI_2);
-		*new_pos_y = map->player.y + len * cos((raydir - 2) * M_PI_2);
-	}
-	else
-	{
-		*new_pos_x = map->player.x - len * cos((raydir - 3) * M_PI_2);
-		*new_pos_y = map->player.y - len * sin((raydir - 3) * M_PI_2);
-	}
-}*/
-
 void	raycast(int n, t_map *map, float raydir)
 {
 	float	len_ray;
 	int		middle_part;
-//	float	new_pos_x;
-//	float	new_pos_y;
-	char	*buffer;
-	int		pixel_bits;
-	int		line_bytes;
-	int		endian;
-	int		pixel;
 	int		i;
 
 	if (raydir - (int)raydir == 0)
 		raydir += 0.00001;
 	len_ray = ray_len(map, raydir);
-	middle_part = (int)((CUBE_SIZE * 900)/len_ray);
-	buffer = mlx_get_data_addr(map->vars.screen, &pixel_bits, &line_bytes, &endian);
+	len_ray *= cos(modulo_perso(map->player.dir - raydir, 4) * M_PI_2);
+	get_wall_color(map, raydir);
+	middle_part = (int)((CUBE_SIZE * SCREEN_HEIGHT )/len_ray);
 	i = 0;
-	while (i < 450 - middle_part/2)
+	if (middle_part >= SCREEN_HEIGHT)
 	{
-		pixel = (i * line_bytes) + (n * 4);
-		buffer[pixel + 0] = (unsigned char)0;
-		buffer[pixel + 1] = (unsigned char)225;
-		buffer[pixel + 2] = (unsigned char)30;
-		buffer[pixel + 3] = (unsigned char)0;
+		while (i < SCREEN_HEIGHT)
+		{
+			set_wall_color(map, n, i);
+			i++;
+		}
+		return ;
+	}
+	while (i < SCREEN_HEIGHT/2 - middle_part/2)
+	{
+		put_pixel(n, i, map->ceiling, map);
 		i++;
 	}
-	while (i < 450 + middle_part/2)
+	while (i < SCREEN_HEIGHT/2 + middle_part/2)
 	{
-		pixel = (i * line_bytes) + (n * 4);
-		buffer[pixel + 0] = (unsigned char)0;
-		buffer[pixel + 1] = (unsigned char)100;
-		buffer[pixel + 2] = (unsigned char)100;
-		buffer[pixel + 3] = (unsigned char)100;
+		set_wall_color(map, n, i);
 		i++;
 	}
-	while (i < 900)
+	while (i < SCREEN_HEIGHT)
 	{
-		pixel = (i * line_bytes) + (n * 4);
-		buffer[pixel + 0] = (unsigned char)0;
-		buffer[pixel + 1] = (unsigned char)220;
-		buffer[pixel + 2] = (unsigned char)100;
-		buffer[pixel + 3] = (unsigned char)0;
+		put_pixel(n, i, map->floor, map);
 		i++;
 	}
-	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->vars.screen, 0, 0);
-	//set_new_pos_intersection(map, raydir, &new_pos_x,&new_pos_y);
-	
 }

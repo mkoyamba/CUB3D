@@ -6,16 +6,11 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:11:37 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/06 12:31:26 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/07 15:16:42 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
-
-/*static void	get_player_position(t_map *map)
-{
-
-}*/
 
 static void	set_struct(t_map *map, char **readed)
 {

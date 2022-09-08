@@ -6,7 +6,7 @@
 #    By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 12:29:55 by mkoyamba          #+#    #+#              #
-#    Updated: 2022/09/06 22:07:05 by mkoyamba         ###   ########.fr        #
+#    Updated: 2022/09/07 17:14:36 by mkoyamba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC +=\
 	events.c\
 	events_utils.c\
 	raycasting.c\
+	raycasting_utils.c\
 
 # files
 SRC +=\

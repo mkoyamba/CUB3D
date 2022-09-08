@@ -6,15 +6,32 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:58:03 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/06 12:57:45 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/07 14:56:36 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 
+static void	set_int_color(int *result, char **colors)
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	*buf;
+	
+	r = (unsigned char)ft_atoi(colors[0]);
+	g = (unsigned char)ft_atoi(colors[1]);
+	b = (unsigned char)ft_atoi(colors[2]);
+	buf = (unsigned char *)result;
+	buf[0] = 255;
+	buf[1] = r;
+	buf[2] = g;
+	buf[3] = b;
+}
+
 int	get_colors_parsing(char *line, t_map *map, char c)
 {
-	char	**colors;
+	char			**colors;
 
 	while (*line && *line == ' ')
 		line++;
@@ -24,17 +41,9 @@ int	get_colors_parsing(char *line, t_map *map, char c)
 	if (!colors)
 		return (0);
 	if (c == 'f')
-	{
-		map->floor[0] = ft_atoi(colors[0]);
-		map->floor[1] = ft_atoi(colors[1]);
-		map->floor[2] = ft_atoi(colors[2]);
-	}
+		set_int_color(&(map->floor), colors);
 	else
-	{
-		map->ceiling[0] = ft_atoi(colors[0]);
-		map->ceiling[1] = ft_atoi(colors[1]);
-		map->ceiling[2] = ft_atoi(colors[2]);
-	}
+		set_int_color(&(map->ceiling), colors);
 	free_mat(colors);
 	return (1);
 }

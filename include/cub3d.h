@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/07 00:05:22 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:04:24 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,17 @@
 # define E_CLOSED_MAP "the map is not closed"
 
 //exec
-# define SPEED 1
-# define TURN_SPEED 0.25
-# define CUBE_SIZE 0.5
+# define SPEED 0.1
+# define TURN_SPEED 0.02
+# define CUBE_SIZE 1.5
+# define SCREEN_WIDTH 800
+# define SCREEN_HEIGHT 450
+# define COLLISION_LEN 0.1
+
+# define WALL_NORTH 0x00AABB00
+# define WALL_EAST 0x0000BB00
+# define WALL_SOUTH 0xCC000000
+# define WALL_WEST 0x00AA0000
 
 //          ----------========== {     FCTS     } ==========----------
 
