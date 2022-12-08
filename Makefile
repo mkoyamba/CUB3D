@@ -6,7 +6,7 @@
 #    By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 12:29:55 by mkoyamba          #+#    #+#              #
-#    Updated: 2022/12/08 13:28:30 by mkoyamba         ###   ########.fr        #
+#    Updated: 2022/12/08 20:08:43 by mkoyamba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ $(OBJ_DIR):
 clean:
 	@make -C lib/libft clean
 	@rm -f $(OBJ)
-	@rm -rf obj_dir
+	@rm -rf src/obj_dir
 	@printf "\e[0;31m[.o files deleted]\n\e[0;m"
 
 fclean: clean

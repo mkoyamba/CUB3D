@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:22:55 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/08 13:07:48 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/08 19:48:36 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ int	is_in_map(float x, float y, t_map *map)
 }
 
 int	ft_map_values(float value, float from, float to)
-{
-	return(value / from * to);
-}
-
-float	ft_map_values_f(float value, float from, float to)
 {
 	return(value / from * to);
 }

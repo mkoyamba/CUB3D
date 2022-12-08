@@ -6,11 +6,26 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:31:29 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/08 13:28:08 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/08 19:25:34 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+
+int	switch_color(int color)
+{
+	unsigned char	*color_buf;
+	unsigned char	temp;
+
+	color_buf = (unsigned char *)&color;
+	temp = color_buf[3];
+	color_buf[3] = color_buf[0];
+	color_buf[0] = temp;
+	temp = color_buf[1];
+	color_buf[1] = color_buf[2];
+	color_buf[2] = temp;
+	return (color);
+}
 
 void	set_wall_color(t_map *map, int n, int i)
 {
@@ -30,7 +45,10 @@ void	set_wall_color(t_map *map, int n, int i)
 	color = *(int *)(img
 			+ (4 * (map->img[map->wall_color].x) * posy)
 			+ (4 * posx));
-	put_pixel(n, i, color, map);
+	if (!map->img[map->wall_color].endian)
+		put_pixel(n, i, switch_color(color), map);
+	else
+		put_pixel(n, i, color, map);
 }
 
 void	set_wall_color_full(t_map *map, int n, int i)
@@ -53,7 +71,10 @@ void	set_wall_color_full(t_map *map, int n, int i)
 	color = *(int *)(img
 			+ (4 * (map->img[map->wall_color].x) * posy)
 			+ (4 * posx));
-	put_pixel(n, i, color, map);
+	if (!map->img[map->wall_color].endian)
+		put_pixel(n, i, switch_color(color), map);
+	else
+		put_pixel(n, i, color, map);
 }
 
 void	put_pixel(int x, int y, int color, t_map *map)
