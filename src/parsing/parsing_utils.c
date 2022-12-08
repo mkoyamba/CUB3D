@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:34:18 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/06 15:33:23 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:08:00 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_struct_map(t_map *map)
 {
 	if (map->map)
 		free_mat(map->map);
+	free_textures_xpm(map);
 	if (map->textures[NORTH])
 		free(map->textures[NORTH]);
 	if (map->textures[SOUTH])
@@ -59,6 +60,10 @@ void	init_struct_map(t_map *map)
 	map->map = NULL;
 	map->vars.mlx = NULL;
 	map->vars.win = NULL;
+	map->img[NORTH].ptr = NULL;
+	map->img[SOUTH].ptr = NULL;
+	map->img[EAST].ptr = NULL;
+	map->img[WEST].ptr = NULL;
 	map->textures[NORTH] = NULL;
 	map->textures[SOUTH] = NULL;
 	map->textures[EAST] = NULL;

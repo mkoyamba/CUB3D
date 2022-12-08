@@ -6,7 +6,7 @@
 #    By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 12:29:55 by mkoyamba          #+#    #+#              #
-#    Updated: 2022/09/07 17:14:36 by mkoyamba         ###   ########.fr        #
+#    Updated: 2022/12/08 13:28:30 by mkoyamba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,23 +34,18 @@ SRC +=\
 	setup.c\
 	check_map.c\
 	setup_utils.c\
+	files.c\
 
 # exec
 SRC +=\
 	exec.c\
 	exec_utils.c\
+	exec_tools.c\
 	events.c\
 	events_utils.c\
 	raycasting.c\
 	raycasting_utils.c\
-
-# files
-SRC +=\
-	files.c\
-
-# animations
-SRC +=\
-	animations.c\
+	raycasting_checks.c\
 
 #          ----------========== {     OBJS     } ==========----------
 

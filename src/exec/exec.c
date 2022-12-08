@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:55:09 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/07 18:29:47 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:13:18 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,27 @@ static int	game_loop(t_map *map)
 	{
 		posx = map->player.x + new_pos_x(map);
 		posy = map->player.y + new_pos_y(map);
-		printf("X = %f | Y = %f | DIR = %f\n",
-			map->player.x, map->player.y, map->player.dir);
 		if (is_valid_pos(map, map->player.x + new_colision_x(map),
 					map->player.y + new_colision_y(map)))
 		{
 			map->player.x = posx;
 			map->player.y = posy;
 			map->refresh = 1;
+		}
+		else
+		{
+			if (is_valid_pos(map, map->player.x + new_colision_x(map),
+					map->player.y))
+			{
+				map->player.x = posx;
+				map->refresh = 1;
+			}
+			else if (is_valid_pos(map, map->player.x,
+						map->player.y + new_colision_y(map)))
+			{
+				map->player.y = posy;
+				map->refresh = 1;
+			}
 		}
 	}
 	if (map->refresh == 1)
@@ -75,6 +88,8 @@ int	new_game(t_map *map)
 	map->player.y += 0.5;
 	map->refresh = 1;
 	map->vars.mlx = mlx_init();
+	if (!textures_init_xpm(map))
+		return (1);
 	map->vars.win = mlx_new_window(
 				map->vars.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3d");
 	mlx_hook(map->vars.win, 17, 0, end_exec, map);

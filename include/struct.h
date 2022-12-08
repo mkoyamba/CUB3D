@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:25 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/07 16:44:27 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:00:34 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,39 @@ typedef struct s_player
 	int		antitrigo;
 }				t_player;
 
+typedef struct s_img
+{
+	void	*ptr;
+	int		endian;
+	int		size_line;
+	int		bits_pixel;
+	int		x;
+	int		y;
+}				t_img;
+
+typedef struct s_column
+{
+	int	height;
+	int	start;
+}				t_column;
+
 typedef struct s_map
 {
+	t_vars		vars;
+	t_player	player;
+	t_column	column;
 	char		**map;
 	char		*textures[4];
-	t_player	player;
+	t_img		img[4];
 	int			floor;
 	int			ceiling;
-	t_vars		vars;
 	int			refresh;
 	char		*buffer;
 	int			pixel_bits;
 	int			line_bytes;
-	int			endian;
 	int			wall_color;
+	float		wall_pos;
+	int			endian;
 }				t_map;
 
 #endif

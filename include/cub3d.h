@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/07 18:04:24 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:03:01 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@
 # include "../lib/libft/include/libft.h"
 
 # include "struct.h"
-# include "animations.h"
 # include "exec.h"
-# include "files.h"
-# include "menu.h"
 # include "parsing.h"
 
 //          ----------========== {     DEFS     } ==========----------
@@ -58,15 +55,10 @@
 //exec
 # define SPEED 0.1
 # define TURN_SPEED 0.02
-# define CUBE_SIZE 1.5
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 450
-# define COLLISION_LEN 0.1
-
-# define WALL_NORTH 0x00AABB00
-# define WALL_EAST 0x0000BB00
-# define WALL_SOUTH 0xCC000000
-# define WALL_WEST 0x00AA0000
+# define CUBE_SIZE 1.8
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 720
+# define COLLISION_LEN 0.25
 
 //          ----------========== {     FCTS     } ==========----------
 

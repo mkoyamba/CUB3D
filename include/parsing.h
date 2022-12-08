@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/06 12:10:39 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:07:20 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ char	**matdup(char **mat);
 int		set_map_infos(t_map *map, char **readed);
 int		get_colors_parsing(char *line, t_map *map, char c);
 int		get_textures_parsing(t_map *map, char **readed);
+void	free_textures_xpm(t_map *map);
+int		textures_init_xpm(t_map *map);
 
 #endif
