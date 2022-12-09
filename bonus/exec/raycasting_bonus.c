@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:31:29 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 13:37:45 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/09 20:28:54 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../include_bonus/exec_bonus.h"
 
 int	switch_color(int color)
 {
@@ -34,10 +34,29 @@ void	set_wall_color(t_map *map, int n, int i)
 	char	*img;
 	int		color;
 
-	img = mlx_get_data_addr (map->img[map->wall_color].ptr,
+	if (map->column.type == '1')
+	{
+		img = mlx_get_data_addr (map->img[map->wall_color].ptr,
 			&(map->img[map->wall_color].bits_pixel),
 			&(map->img[map->wall_color].size_line),
 			&(map->img[map->wall_color].endian));
+	}
+	else if (map->column.type == '2')
+	{
+		map->wall_color = CLOSED;
+		img = mlx_get_data_addr (map->img[map->wall_color].ptr,
+			&(map->img[map->wall_color].bits_pixel),
+			&(map->img[map->wall_color].size_line),
+			&(map->img[map->wall_color].endian));
+	}
+	else
+	{
+		map->wall_color = OPENED;
+		img = mlx_get_data_addr (map->img[map->wall_color].ptr,
+			&(map->img[map->wall_color].bits_pixel),
+			&(map->img[map->wall_color].size_line),
+			&(map->img[map->wall_color].endian));
+	}
 	posx = ft_map_values(map->wall_pos, 1, map->img[map->wall_color].x - 1);
 	posy = ft_map_values(i - map->column.start,
 			SCREEN_HEIGHT/2 + map->column.height/2 - map->column.start,
@@ -59,10 +78,29 @@ void	set_wall_color_full(t_map *map, int n, int i)
 	char	*img;
 	int		color;
 
-	img = mlx_get_data_addr (map->img[map->wall_color].ptr,
+	if (map->column.type == '1')
+	{
+		img = mlx_get_data_addr (map->img[map->wall_color].ptr,
 			&(map->img[map->wall_color].bits_pixel),
 			&(map->img[map->wall_color].size_line),
 			&(map->img[map->wall_color].endian));
+	}
+	else if (map->column.type == '2')
+	{
+		map->wall_color = CLOSED;
+		img = mlx_get_data_addr (map->img[map->wall_color].ptr,
+			&(map->img[map->wall_color].bits_pixel),
+			&(map->img[map->wall_color].size_line),
+			&(map->img[map->wall_color].endian));
+	}
+	else
+	{
+		map->wall_color = OPENED;
+		img = mlx_get_data_addr (map->img[map->wall_color].ptr,
+			&(map->img[map->wall_color].bits_pixel),
+			&(map->img[map->wall_color].size_line),
+			&(map->img[map->wall_color].endian));
+	}
 	posx = ft_map_values(map->wall_pos, 1, map->img[map->wall_color].x - 1);
 	diff = map->column.height - SCREEN_HEIGHT;
 	posy = i + diff/2;
@@ -81,13 +119,19 @@ void	put_pixel(int x, int y, int color, t_map *map)
 {
 	int				pixel;
 	unsigned char	*color_buf;
+	int				iter;
 
-	pixel = (y * map->line_bytes) + (x * 4);
-	color_buf = (unsigned char *)&color;
-	map->buffer[pixel] = color_buf[3];
-	map->buffer[pixel + 1] = color_buf[2];
-	map->buffer[pixel + 2] = color_buf[1];
-	map->buffer[pixel + 3] = (unsigned char)0;
+	iter = 0;
+	while(iter < 2)
+	{
+		pixel = (y * map->line_bytes) + ((x + iter) * 4) ;
+		color_buf = (unsigned char *)&color;
+		map->buffer[pixel] = color_buf[3];
+		map->buffer[pixel + 1] = color_buf[2];
+		map->buffer[pixel + 2] = color_buf[1];
+		map->buffer[pixel + 3] = (unsigned char)0;
+		iter++;
+	}
 }
 
 static float	ray_len(t_map *map, float raydir)
@@ -110,20 +154,16 @@ static float	ray_len(t_map *map, float raydir)
 
 void	raycast(int n, t_map *map, float raydir)
 {
-	float	len_ray;
 	int		middle_part;
 	int		i;
 
 	if (raydir - (int)raydir == 0)
 		raydir += 0.0001;
-	len_ray = ray_len(map, raydir);
-	len_ray *= cos(modulo_perso(map->player.dir - raydir, 4) * M_PI_2);
-	middle_part = (int)((CUBE_SIZE * SCREEN_HEIGHT )/len_ray);
+	map->column.raylen = ray_len(map, raydir);
+	map->column.raylen *= cos(modulo_perso(map->player.dir - raydir, 4) * M_PI_2);
+	middle_part = (int)((CUBE_SIZE * SCREEN_HEIGHT )/map->column.raylen);
 	i = 0;
 	map->column.height = middle_part;
-	while(i < (SCREEN_HEIGHT - middle_part) * 30)
-		i++;
-	i = 0;
 	if (middle_part >= SCREEN_HEIGHT)
 	{
 		while (i < SCREEN_HEIGHT)

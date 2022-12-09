@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 13:38:27 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:46:41 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 //          ----------========== {   INCLUDES   } ==========----------
 
@@ -24,9 +24,9 @@
 # include "../lib/minilibx/mlx.h"
 # include "../lib/libft/include/libft.h"
 
-# include "struct.h"
-# include "exec.h"
-# include "parsing.h"
+# include "struct_bonus.h"
+# include "exec_bonus.h"
+# include "parsing_bonus.h"
 
 //          ----------========== {     DEFS     } ==========----------
 
@@ -38,6 +38,12 @@
 # define EAST 1
 # define SOUTH 2
 # define WEST 3
+# define CLOSED 4
+# define OPENED 5
+
+//path to doors
+# define T_CLOSED "./textures/closed.xpm"
+# define T_OPENED "./textures/opened.xpm"
 
 //parsing
 # define E_ARGS "invalid arguments"
@@ -56,8 +62,8 @@
 # define SPEED 0.1
 # define TURN_SPEED 0.03
 # define CUBE_SIZE 1.8
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 450
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 720
 # define COLLISION_LEN 0.25
 
 //          ----------========== {     FCTS     } ==========----------
