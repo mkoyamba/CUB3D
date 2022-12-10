@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 19:46:41 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:41:21 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,23 @@
 # define WEST 3
 # define CLOSED 4
 # define OPENED 5
+# define ANIM1 6
+# define ANIM2 7
+# define ANIM3 8
+# define ANIM4 9
+# define ANIM5 10
 
-//path to doors
+//path to textures
 # define T_CLOSED "./textures/closed.xpm"
 # define T_OPENED "./textures/opened.xpm"
+# define T_ANIM1 "./textures/anim1.xpm"
+# define T_ANIM2 "./textures/anim2.xpm"
+# define T_ANIM3 "./textures/anim3.xpm"
+# define T_ANIM4 "./textures/anim4.xpm"
+# define T_ANIM5 "./textures/anim5.xpm"
 
 //parsing
+# define E_MAP_SIZE "screen needs to be at least 250x250"
 # define E_ARGS "invalid arguments"
 # define E_FORMAT "map must be formated as *.cub"
 # define E_FILE "no such file"
@@ -65,6 +76,12 @@
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 # define COLLISION_LEN 0.25
+# define CROSSHAIR_SIZE 8
+# define CROSSHAIR_COLOR 0xDDDDDD00
+# define ANIM_SPEED 0.0003
+
+//colors
+# define EMPTY_COLOR 0xFFFFFF00
 
 //          ----------========== {     FCTS     } ==========----------
 

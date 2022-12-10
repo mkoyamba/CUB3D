@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:53:32 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 14:29:33 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:35:37 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	main(int argc, char **argv)
 	t_map	*map;
 	int		result;
 
+	if (SCREEN_WIDTH < 250 || SCREEN_HEIGHT < 250)
+		error_out(E_MAP_SIZE, 1);
 	map = parsing(argc, argv);
 	result = new_game(map);
 	return (result);

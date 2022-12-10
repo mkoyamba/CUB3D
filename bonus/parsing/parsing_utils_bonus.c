@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:34:18 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 14:07:14 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:18:35 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ void	init_struct_map(t_map *map)
 	map->textures[SOUTH] = NULL;
 	map->textures[EAST] = NULL;
 	map->textures[WEST] = NULL;
+	map->player.right = 0;
+	map->player.left = 0;
+	map->player.forward = 0;
+	map->player.backward = 0;
+	map->player.trigo = 0;
+	map->player.antitrigo = 0;
+	map->player.x += 0.5;
+	map->player.y += 0.5;
+	map->player.pos_turn = 0;
+	map->refresh = 1;
+	map->player.open = 0;
+	map->minimap = 0;
+	map->anim = 6;
 }
 
 char	**read_map(int fd)

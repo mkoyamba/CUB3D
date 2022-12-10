@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:03:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 21:31:05 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/10 15:41:52 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		event_key_pressed(int keycode, t_map *map);
 int		event_key_released(int keycode, t_map *map);
 int		is_valid_pos(t_map *map, float x, float y);
 int		is_valid_pos_player(t_map *map, float x, float y);
+int		is_wall(t_map *map, float x, float y);
+int		is_door(t_map *map, float x, float y);
 float	new_pos_x(t_map *map);
 float	new_pos_y(t_map *map);
 void	manahge_door(t_map *map);

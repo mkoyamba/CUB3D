@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:25 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 20:26:48 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:16:14 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef struct s_map
 	t_player	player;
 	t_column	column;
 	char		**map;
-	char		*textures[6];
-	t_img		img[6];
+	char		*textures[11];
+	t_img		img[11];
 	int			floor;
 	int			ceiling;
 	int			refresh;
@@ -77,6 +77,8 @@ typedef struct s_map
 	int			wall_color;
 	float		wall_pos;
 	int			endian;
+	int			minimap;
+	float		anim;
 }				t_map;
 
 #endif

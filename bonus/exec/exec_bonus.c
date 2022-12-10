@@ -6,12 +6,116 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:55:09 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 21:30:56 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:40:47 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include_bonus/exec_bonus.h"
 #include <sys/wait.h>
+
+void	put_big_minimap(t_map *map)
+{
+	(void)map;
+}
+
+void	put_minimap(t_map *map)
+{
+	int		start_point_x;
+	int		start_point_y;
+	float	n;
+	float	i;
+
+	//map
+	n = 0;
+	start_point_x = 10;
+	start_point_y = 10;
+	while (n < 200)
+	{
+		i = 0;
+		while (i < 200)
+		{
+			if (sqrt(powf(n/12.5 - 8, 2) + powf(i/12.5 - 8, 2)) > 8)
+			{
+					i++;
+					continue ;
+			}
+			else if (!is_in_map(
+					map->player.x - 8 + n/12.5, map->player.y - 8 + i/12.5, map)
+					|| sqrt(powf(n/12.5 - 8, 2) + powf(i/12.5 - 8, 2)) > 7.7)
+				put_pixel(start_point_x + n, start_point_y + i, 0x00000000, map);
+			else if (is_wall(map,
+					map->player.x - 8 + n/12.5, map->player.y - 8 + i/12.5))
+				put_pixel(start_point_x + n, start_point_y + i, map->floor, map);
+			else if (is_door(map,
+					map->player.x - 8 + n/12.5, map->player.y - 8 + i/12.5))
+				put_pixel(start_point_x + n, start_point_y + i, 0x0099FF00, map);
+			else
+				put_pixel(start_point_x + n, start_point_y + i, CROSSHAIR_COLOR, map);
+			i++;
+		}
+		n++;
+	}
+	//rayon
+	start_point_x += 100;
+	start_point_y += 100;
+	n = 0;
+	while (n < 15)
+	{
+		put_pixel(start_point_x + (n * sin(map->player.dir/4 * M_PI * 2)),
+					start_point_y - (n * cos(map->player.dir/4 * M_PI * 2)),
+					0x0000FF00, map);
+		n++;
+	}
+	//player
+	start_point_x -= 2;
+	start_point_y -= 3;
+	n = 0;
+	while (n < 5)
+	{
+		i = 0;
+		while (i < 6)
+		{
+			put_pixel(start_point_x + n, start_point_y + i, 0x00000000, map);
+			i++;
+		}
+		n++;
+	}
+}
+
+void	put_crosshair(t_map *map)
+{
+	int	start_point_x;
+	int	start_point_y;
+	int	n;
+	int	i;
+
+	n = 0;
+	start_point_x = SCREEN_WIDTH/2 - CROSSHAIR_SIZE + 1;
+	start_point_y = SCREEN_HEIGHT/2 - 2;
+	while (n < CROSSHAIR_SIZE * 2 - 2)
+	{
+		i = 0;
+		while (i < 3)
+		{
+			put_pixel(start_point_x + n, start_point_y + i, CROSSHAIR_COLOR, map);
+			i++;
+		}
+		n++;
+	}
+	n = 0;
+	start_point_x = SCREEN_WIDTH/2 - 1;
+	start_point_y = SCREEN_HEIGHT/2 - CROSSHAIR_SIZE;
+	while (n < 2)
+	{
+		i = 0;
+		while (i < CROSSHAIR_SIZE * 2 - 1)
+		{
+			put_pixel(start_point_x + n, start_point_y + i, CROSSHAIR_COLOR, map);
+			i++;
+		}
+		n++;
+	}
+}
 
 void	refresh_screen(t_map *map)
 {
@@ -26,6 +130,13 @@ void	refresh_screen(t_map *map)
 		raycast(n, map, raydir);
 		n+=2;
 	}
+	if (!map->minimap)
+	{
+		put_minimap(map);
+		put_crosshair(map);
+	}
+	else
+		put_big_minimap(map);
 }
 
 static int	game_loop(t_map *map)
@@ -36,6 +147,9 @@ static int	game_loop(t_map *map)
 
 	if (map->player.open)
 		manahge_door(map);
+	map->anim += ANIM_SPEED;
+	if ((int)map->anim > ANIM5)
+		map->anim = ANIM1;
 	rotation = ft_map_values_f(map->player.pos_turn, SCREEN_WIDTH, 4) * 0.15;
 	map->player.dir = modulo_perso(map->player.dir + rotation, 4);
 	if (map->player.pos_turn != 0)
@@ -61,13 +175,13 @@ static int	game_loop(t_map *map)
 		}
 		else
 		{
-			if (is_valid_pos(map, map->player.x + new_colision_x(map),
+			if (is_valid_pos_player(map, map->player.x + new_colision_x(map),
 					map->player.y))
 			{
 				map->player.x = posx;
 				map->refresh = 1;
 			}
-			else if (is_valid_pos(map, map->player.x,
+			else if (is_valid_pos_player(map, map->player.x,
 						map->player.y + new_colision_y(map)))
 			{
 				map->player.y = posy;
@@ -86,17 +200,6 @@ static int	game_loop(t_map *map)
 
 int	new_game(t_map *map)
 {
-	map->player.right = 0;
-	map->player.left = 0;
-	map->player.forward = 0;
-	map->player.backward = 0;
-	map->player.trigo = 0;
-	map->player.antitrigo = 0;
-	map->player.x += 0.5;
-	map->player.y += 0.5;
-	map->player.pos_turn = 0;
-	map->refresh = 1;
-	map->player.open = 0;
 	map->vars.mlx = mlx_init();
 	if (!textures_init_xpm(map))
 		return (1);

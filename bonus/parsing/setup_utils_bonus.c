@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:58:03 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 19:48:18 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:13:28 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,10 @@ int	get_textures_parsing(t_map *map, char **readed)
 	}
 	map->textures[CLOSED] = T_CLOSED;
 	map->textures[OPENED] = T_OPENED;
+	map->textures[ANIM1] = T_ANIM1;
+	map->textures[ANIM2] = T_ANIM2;
+	map->textures[ANIM3] = T_ANIM3;
+	map->textures[ANIM4] = T_ANIM4;
+	map->textures[ANIM5] = T_ANIM5;
 	return (1);
 }

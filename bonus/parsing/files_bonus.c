@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:41:20 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 19:53:19 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:14:07 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	textures_init_xpm(t_map *map)
 	int	n;
 
 	n = 0;
-	while (n < 6)
+	while (n < 11)
 	{
 		map->img[n].ptr = mlx_xpm_file_to_image(map->vars.mlx, map->textures[n],
 						&(map->img[n].x), &(map->img[n].y));
