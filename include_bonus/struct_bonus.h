@@ -66,8 +66,8 @@ typedef struct s_map
 	t_player	player;
 	t_column	column;
 	char		**map;
-	char		*textures[11];
-	t_img		img[11];
+	char		*textures[12];
+	t_img		img[12];
 	int			floor;
 	int			ceiling;
 	int			refresh;

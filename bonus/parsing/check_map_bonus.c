@@ -15,7 +15,7 @@
 static char	*check_zero(char **map, size_t n, size_t i)
 {
 	if (n == 0 || i == 0 || (int)n == matlen(map) - 1
-		|| i == ft_strlen(map[n]) - 1 || map[n][i - 1] == ' '
+		|| i == ft_strlen(map[n]) - 2 || map[n][i - 1] == ' '
 		|| map[n][i + 1] == ' ')
 		return (E_CLOSED_MAP);
 	if (ft_strlen(map[n - 1]) < i + 2 || ft_strlen(map[n + 1]) < i + 2

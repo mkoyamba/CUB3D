@@ -30,7 +30,7 @@ int	textures_init_xpm(t_map *map)
 	int	n;
 
 	n = 0;
-	while (n < 11)
+	while (n < 12)
 	{
 		map->img[n].ptr = mlx_xpm_file_to_image(map->vars.mlx, map->textures[n],
 						&(map->img[n].x), &(map->img[n].y));

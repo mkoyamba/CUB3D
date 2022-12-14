@@ -45,6 +45,7 @@
 # define ANIM3 8
 # define ANIM4 9
 # define ANIM5 10
+# define ANIM6 11
 
 //path to textures
 # define T_CLOSED "./textures/closed.xpm"
@@ -54,6 +55,7 @@
 # define T_ANIM3 "./textures/anim3.xpm"
 # define T_ANIM4 "./textures/anim4.xpm"
 # define T_ANIM5 "./textures/anim5.xpm"
+# define T_ANIM6 "./textures/anim6.xpm"
 
 //parsing
 # define E_MAP_SIZE "screen needs to be at least 250x250"
