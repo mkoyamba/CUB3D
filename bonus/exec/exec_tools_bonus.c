@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:22:55 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/10 15:40:46 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:52:24 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ float	ft_map_values_f(float value, float from, float to)
 
 int	is_valid_pos(t_map *map, float x, float y)
 {
-	if (map->map[(int)y][(int)x] != '0')
+	if (map->map[(int)y][(int)x] != '0' && map->map[(int)y][(int)x] != '4')
 		return (0);
+	else if (map->map[(int)y][(int)x] != '4')
+		return (2);
 	return (1);
 }
 
@@ -55,7 +57,9 @@ int	is_door(t_map *map, float x, float y)
 
 int	is_valid_pos_player(t_map *map, float x, float y)
 {
-	if (map->map[(int)y][(int)x] != '0' && map->map[(int)y][(int)x] != '3')
+	if (map->map[(int)y][(int)x] != '0'
+		&& map->map[(int)y][(int)x] != '3'
+		&& map->map[(int)y][(int)x] != '4')
 		return (0);
 	return (1);
 }

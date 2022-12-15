@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:03:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/10 15:41:52 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:32:20 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ float	new_colision_y(t_map *map);
 void	put_pixel(int x, int y, int color, t_map *map);
 int		ft_map_values(float value, float from, float to);
 float	ft_map_values_f(float value, float from, float to);
+int		switch_color(int color);
 
 #endif

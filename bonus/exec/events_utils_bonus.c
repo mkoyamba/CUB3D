@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:29:59 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 21:08:58 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:04:07 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	event_key_pressed(int keycode, t_map *map)
 		end_exec(map);
 	else if (keycode == 2)
 		map->player.right = 1;
+	else if (keycode == 48)
+		map->minimap = 1;
 	else if (keycode == 0)
 		map->player.left = 1;
 	else if (keycode == 13)
@@ -58,6 +60,8 @@ int	event_key_released(int keycode, t_map *map)
 		map->player.right = 0;
 	else if (keycode == 0)
 		map->player.left = 0;
+	else if (keycode == 48)
+		map->minimap = 0;
 	else if (keycode == 13)
 		map->player.forward = 0;
 	else if (keycode == 1)

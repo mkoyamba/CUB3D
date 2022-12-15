@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/10 17:41:21 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:13:39 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@
 # define COLLISION_LEN 0.25
 # define CROSSHAIR_SIZE 8
 # define CROSSHAIR_COLOR 0xDDDDDD00
-# define ANIM_SPEED 0.0003
+# define ANIM_SPEED 0.2
 
 //colors
 # define EMPTY_COLOR 0xFFFFFF00

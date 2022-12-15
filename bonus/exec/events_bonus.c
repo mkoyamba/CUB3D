@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:30:02 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 15:35:50 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:10:27 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ float	new_pos_x(t_map *map)
 	float	move_dir;
 
 	move_dir = get_move_dir(map);
+	if (map->player.forward - map->player.backward == 0
+		&& map->player.right - map->player.left == 0)
+		return (0);
 	if (move_dir >= NORTH && move_dir < EAST)
 		return (sin(move_dir * M_PI_2) * SPEED);
 	else if (move_dir >= EAST && move_dir < SOUTH)
@@ -59,6 +62,9 @@ float	new_pos_y(t_map *map)
 	float	move_dir;
 
 	move_dir = get_move_dir(map);
+	if (map->player.forward - map->player.backward == 0
+		&& map->player.right - map->player.left == 0)
+		return (0);
 	if (move_dir >= NORTH && move_dir < EAST)
 		return (-cos(move_dir * M_PI_2) * SPEED);
 	else if (move_dir >= EAST && move_dir < SOUTH)

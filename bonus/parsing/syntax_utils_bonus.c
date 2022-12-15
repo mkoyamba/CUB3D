@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 18:53:56 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 19:13:24 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:55:35 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	valid_line_map(char *line)
 	{
 		if (line[n] != ' ' && line[n] != '1' && line[n] != '0' && line[n] != 'N'
 			&& line[n] != 'S' && line[n] != 'W' && line[n] != 'E'
-			&& line[n] != '\n' && line[n] != '2' && line[n] != '3')
+			&& line[n] != '\n' && line[n] != '2' && line[n] != '3'
+			&& line[n] != '4')
 			return (0);
 		n++;
 	}

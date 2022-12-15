@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:25 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/10 17:16:14 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:15:20 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_map
 	t_img		img[12];
 	int			floor;
 	int			ceiling;
-	int			refresh;
 	char		*buffer;
 	int			pixel_bits;
 	int			line_bytes;

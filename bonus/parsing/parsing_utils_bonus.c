@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:34:18 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/10 17:18:35 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:02:27 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,18 @@ void	free_struct_map(t_map *map)
 
 void	init_struct_map(t_map *map)
 {
+	int	n;
+
+	n = 0;
+	while (n < 12)
+	{
+		map->img[n].ptr = NULL;
+		map->textures[n] = NULL;
+		n++;
+	}
 	map->map = NULL;
 	map->vars.mlx = NULL;
 	map->vars.win = NULL;
-	map->img[NORTH].ptr = NULL;
-	map->img[SOUTH].ptr = NULL;
-	map->img[EAST].ptr = NULL;
-	map->img[WEST].ptr = NULL;
-	map->textures[NORTH] = NULL;
-	map->textures[SOUTH] = NULL;
-	map->textures[EAST] = NULL;
-	map->textures[WEST] = NULL;
 	map->player.right = 0;
 	map->player.left = 0;
 	map->player.forward = 0;
@@ -77,7 +78,6 @@ void	init_struct_map(t_map *map)
 	map->player.x += 0.5;
 	map->player.y += 0.5;
 	map->player.pos_turn = 0;
-	map->refresh = 1;
 	map->player.open = 0;
 	map->minimap = 0;
 	map->anim = 6;

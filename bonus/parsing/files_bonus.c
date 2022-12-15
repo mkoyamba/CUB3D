@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:41:20 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/10 17:14:07 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:24:03 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_textures_xpm(t_map *map)
 	int	n;
 
 	n = 0;
-	while (n < 4)
+	while (n < 12)
 	{
 		if (map->img[n].ptr)
 			mlx_destroy_image(map->vars.mlx, map->img[n].ptr);

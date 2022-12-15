@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:55:09 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/10 17:40:47 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:41:46 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,66 @@
 
 void	put_big_minimap(t_map *map)
 {
-	(void)map;
+	int		start_point_x;
+	int		start_point_y;
+	float	n;
+	float	i;
+
+	//map
+	n = 0;
+	start_point_x = 10 + (SCREEN_WIDTH - SCREEN_HEIGHT) / 2;
+	start_point_y = 10;
+	while (n < SCREEN_HEIGHT - 20)
+	{
+		i = 0;
+		while (i < SCREEN_HEIGHT - 20)
+		{
+			if (sqrt(powf(n/((SCREEN_HEIGHT - 10)/32) - 16, 2) + powf(i/((SCREEN_HEIGHT - 10)/32) - 16, 2)) > 15)
+			{
+					i++;
+					continue ;
+			}
+			else if (!is_in_map(
+					map->player.x - 16 + n/((SCREEN_HEIGHT - 10)/32), map->player.y - 16 + i/((SCREEN_HEIGHT - 10)/32), map)
+					|| sqrt(powf(n/((SCREEN_HEIGHT - 10)/32) - 16, 2) + powf(i/((SCREEN_HEIGHT - 10)/32) - 16, 2)) > 14.5)
+				put_pixel(start_point_x + n, start_point_y + i, 0x00000000, map);
+			else if (is_wall(map,
+					map->player.x - 16 + n/((SCREEN_HEIGHT - 10)/32), map->player.y - 16 + i/((SCREEN_HEIGHT - 10)/32)))
+				put_pixel(start_point_x + n, start_point_y + i, map->floor, map);
+			else if (is_door(map,
+					map->player.x - 16 + n/((SCREEN_HEIGHT - 10)/32), map->player.y - 16 + i/((SCREEN_HEIGHT - 10)/32)))
+				put_pixel(start_point_x + n, start_point_y + i, 0x0099FF00, map);
+			else
+				put_pixel(start_point_x + n, start_point_y + i, CROSSHAIR_COLOR, map);
+			i++;
+		}
+		n++;
+	}
+	//rayon
+	start_point_x = SCREEN_WIDTH/2;
+	start_point_y = SCREEN_HEIGHT/2;
+	n = 0;
+	while (n < 30)
+	{
+		put_pixel(start_point_x + (n * sin(map->player.dir/4 * M_PI * 2)),
+					start_point_y - (n * cos(map->player.dir/4 * M_PI * 2)),
+					0x0000FF00, map);
+		n++;
+	}
+	//player
+	start_point_x -= 5;
+	start_point_y -= 6;
+	n = 0;
+	while (n < 12)
+	{
+		i = 0;
+		while (i < 13)
+		{
+			put_pixel(start_point_x + n, start_point_y + i, 0x00000000, map);
+			i++;
+		}
+		n++;
+	}
 }
 
 void	put_minimap(t_map *map)
@@ -148,19 +207,14 @@ static int	game_loop(t_map *map)
 	if (map->player.open)
 		manahge_door(map);
 	map->anim += ANIM_SPEED;
-	if ((int)map->anim > ANIM5)
+	if ((int)map->anim > ANIM6)
 		map->anim = ANIM1;
 	rotation = ft_map_values_f(map->player.pos_turn, SCREEN_WIDTH, 4) * 0.15;
 	map->player.dir = modulo_perso(map->player.dir + rotation, 4);
-	if (map->player.pos_turn != 0)
-		map->refresh = 1;
 	map->player.pos_turn = 0;
 	if (map->player.trigo - map->player.antitrigo)
-	{
 		map->player.dir = modulo_perso(map->player.dir
 			+ (map->player.antitrigo - map->player.trigo) * TURN_SPEED, 4);
-		map->refresh = 1;
-	}
 	if (map->player.forward || map->player.backward || map->player.right
 		|| map->player.left)
 	{
@@ -171,30 +225,19 @@ static int	game_loop(t_map *map)
 		{
 			map->player.x = posx;
 			map->player.y = posy;
-			map->refresh = 1;
 		}
 		else
 		{
 			if (is_valid_pos_player(map, map->player.x + new_colision_x(map),
 					map->player.y))
-			{
 				map->player.x = posx;
-				map->refresh = 1;
-			}
 			else if (is_valid_pos_player(map, map->player.x,
 						map->player.y + new_colision_y(map)))
-			{
 				map->player.y = posy;
-				map->refresh = 1;
-			}
 		}
 	}
-	if (map->refresh == 1)
-	{
-		map->refresh = 0;
-		refresh_screen(map);
-		mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->vars.screen, 0, 0);
-	}
+	refresh_screen(map);
+	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->vars.screen, 0, 0);
 	return (0);
 }
 

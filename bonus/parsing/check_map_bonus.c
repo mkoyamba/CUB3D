@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 20:05:56 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 19:11:19 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:53:53 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*check_map(char **map)
 		i = 0;
 		while (map[n][i])
 		{
-			if ((map[n][i] == '0' || map[n][i] == '2' || map[n][i] == '3')
+			if ((map[n][i] == '0' || map[n][i] == '2' || map[n][i] == '3'
+				|| map[n][i] == '4')
 					&& check_zero(map, n, i))
 				return (check_zero(map, n, i));
 			i++;
