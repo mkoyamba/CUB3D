@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:34:18 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/14 16:02:27 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/15 12:36:56 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	init_struct_map(t_map *map)
 	map->player.open = 0;
 	map->minimap = 0;
 	map->anim = 6;
+	map->column.is_sprite = 0;
 }
 
 char	**read_map(int fd)

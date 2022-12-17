@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:31:29 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/14 15:14:25 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/17 12:23:38 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,15 @@ static float	ray_len(t_map *map, float raydir)
 void	raycast(int n, t_map *map, float raydir)
 {
 	int		middle_part;
+	float	raylen;
 	int		i;
 
+	map->column.n = n;
 	if (raydir - (int)raydir == 0)
 		raydir += 0.0001;
-	map->column.raylen = ray_len(map, raydir);
-	map->column.raylen *= cos(modulo_perso(map->player.dir - raydir, 4) * M_PI_2);
-	middle_part = (int)((CUBE_SIZE * SCREEN_HEIGHT )/map->column.raylen);
+	raylen = ray_len(map, raydir);
+	map->column.raylen = raylen * cos(modulo_perso(map->player.dir - raydir, 4) * M_PI_2);
+	middle_part = (int)((CUBE_SIZE * SCREEN_HEIGHT)/map->column.raylen);
 	i = 0;
 	map->column.height = middle_part;
 	if (middle_part >= SCREEN_HEIGHT)
@@ -189,4 +191,7 @@ void	raycast(int n, t_map *map, float raydir)
 		put_pixel(n, i, map->floor, map);
 		i++;
 	}
+	if (map->column.is_sprite)
+		sprite_draw(map, raylen, raydir);
+	map->column.is_sprite = 0;
 }

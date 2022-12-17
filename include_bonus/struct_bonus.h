@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:25 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/14 15:15:20 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/17 12:22:38 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,28 @@ typedef struct s_column
 	char	typeH;
 	char	type;
 	float	raylen;
+	int		is_sprite;
+	int		n;
 }				t_column;
+
+typedef struct s_sprite
+{
+	float	current_Hx;
+	float	current_Hy;
+	float	Hx;
+	float	Hy;
+	float	current_Vx;
+	float	current_Vy;
+	float	Vx;
+	float	Vy;
+	float	start_x;
+	float	start_y;
+	float	h_raylen;
+	float	v_raylen;
+	float	raydir;
+	int		x;
+	int		y;
+}				t_sprite;
 
 typedef struct s_map
 {

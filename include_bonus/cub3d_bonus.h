@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/14 15:13:39 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/17 14:36:48 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@
 # define CROSSHAIR_SIZE 8
 # define CROSSHAIR_COLOR 0xDDDDDD00
 # define ANIM_SPEED 0.2
+# define HORIZONTAL 0
+# define VERTICAL 1
 
 //colors
-# define EMPTY_COLOR 0xFFFFFF00
+# define EMPTY_COLOR 0xFF000000
 
 //          ----------========== {     FCTS     } ==========----------
 

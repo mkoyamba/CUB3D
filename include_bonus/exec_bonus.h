@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:03:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/14 16:32:20 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/16 17:01:35 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ void	put_pixel(int x, int y, int color, t_map *map);
 int		ft_map_values(float value, float from, float to);
 float	ft_map_values_f(float value, float from, float to);
 int		switch_color(int color);
+void	sprite_draw(t_map *map, float raylen, float raydir);
+int		new_sprite_pos(float raydir, t_sprite *sprite, int mode, t_map *map);
 
 #endif

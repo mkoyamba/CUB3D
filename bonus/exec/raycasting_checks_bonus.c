@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:53:38 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 20:28:05 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/15 12:35:40 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	check_map_ray(float x, float y, float *raylen_HV, t_map *map)
 		*raylen_HV = -1;
 		return (1);
 	}
+	else if (map->map[(int)y][(int)x] == '4')
+		map->column.is_sprite = 1;
 	if (!is_valid_pos(map, x, y))
 	{
 		*raylen_HV =
