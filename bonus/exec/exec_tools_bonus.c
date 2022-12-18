@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:22:55 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/14 16:52:24 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/18 12:40:55 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ int	is_door(t_map *map, float x, float y)
 	if (map->map[(int)y][(int)x] != '2' && map->map[(int)y][(int)x] != '3')
 		return (0);
 	return (1);
+}
+
+int	is_coin(t_map *map, float x, float y)
+{
+	if (map->map[(int)y][(int)x] == '4'
+		&& sqrtf((powf(x - (int)x - 0.5, 2)) + (powf(y - (int)y - 0.5, 2))) < 0.2)
+		return (1);
+	return (0);
 }
 
 int	is_valid_pos_player(t_map *map, float x, float y)

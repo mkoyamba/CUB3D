@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:03:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/16 17:01:35 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:27:37 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		is_valid_pos(t_map *map, float x, float y);
 int		is_valid_pos_player(t_map *map, float x, float y);
 int		is_wall(t_map *map, float x, float y);
 int		is_door(t_map *map, float x, float y);
+int		is_coin(t_map *map, float x, float y);
 float	new_pos_x(t_map *map);
 float	new_pos_y(t_map *map);
 void	manahge_door(t_map *map);
@@ -54,5 +55,8 @@ float	ft_map_values_f(float value, float from, float to);
 int		switch_color(int color);
 void	sprite_draw(t_map *map, float raylen, float raydir);
 int		new_sprite_pos(float raydir, t_sprite *sprite, int mode, t_map *map);
+void	get_coin(t_map *map);
+void	put_coins(t_map *map);
+void	put_coin_img(t_map *map);
 
 #endif

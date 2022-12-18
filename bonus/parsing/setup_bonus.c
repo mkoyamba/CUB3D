@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 19:51:23 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/17 18:52:40 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:02:51 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**matdup(char **mat)
 static void	set_player_start_postion(t_map *map, char *c, int i, int n)
 {
 	map->player.x = i + 0.5;
-	map->player.y = n + 0.8;
+	map->player.y = n + 0.5;
 	if (*c == 'N')
 		map->player.dir = NORTH;
 	else if (*c == 'E')

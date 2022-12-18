@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/17 14:36:48 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:13:55 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@
 # define ANIM4 9
 # define ANIM5 10
 # define ANIM6 11
+# define COIN1 12
+# define COIN2 13
+# define COIN3 14
+# define COIN4 15
+# define COIN5 16
+# define COIN6 17
+
+# define BIG_COIN 6
 
 //path to textures
 # define T_CLOSED "./textures/closed.xpm"
@@ -56,6 +64,12 @@
 # define T_ANIM4 "./textures/anim4.xpm"
 # define T_ANIM5 "./textures/anim5.xpm"
 # define T_ANIM6 "./textures/anim6.xpm"
+# define T_COIN1 "./textures/big_coin1.xpm"
+# define T_COIN2 "./textures/big_coin2.xpm"
+# define T_COIN3 "./textures/big_coin3.xpm"
+# define T_COIN4 "./textures/big_coin4.xpm"
+# define T_COIN5 "./textures/big_coin5.xpm"
+# define T_COIN6 "./textures/big_coin6.xpm"
 
 //parsing
 # define E_MAP_SIZE "screen needs to be at least 250x250"

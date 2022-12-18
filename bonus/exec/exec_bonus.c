@@ -6,12 +6,11 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:55:09 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/17 20:16:16 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:39:27 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include_bonus/exec_bonus.h"
-#include <sys/wait.h>
 
 void	put_big_minimap(t_map *map)
 {
@@ -44,6 +43,9 @@ void	put_big_minimap(t_map *map)
 			else if (is_door(map,
 					map->player.x - 16 + n/((SCREEN_HEIGHT - 10)/32), map->player.y - 16 + i/((SCREEN_HEIGHT - 10)/32)))
 				put_pixel(start_point_x + n, start_point_y + i, 0x0099FF00, map);
+			else if (is_coin(map,
+					map->player.x - 16 + n/((SCREEN_HEIGHT - 10)/32), map->player.y - 16 + i/((SCREEN_HEIGHT - 10)/32)))
+				put_pixel(start_point_x + n, start_point_y + i, 0x00CCFF00, map);
 			else
 				put_pixel(start_point_x + n, start_point_y + i, CROSSHAIR_COLOR, map);
 			i++;
@@ -108,6 +110,9 @@ void	put_minimap(t_map *map)
 			else if (is_door(map,
 					map->player.x - 8 + n/12.5, map->player.y - 8 + i/12.5))
 				put_pixel(start_point_x + n, start_point_y + i, 0x0099FF00, map);
+			else if (is_coin(map,
+					map->player.x - 8 + n/12.5, map->player.y - 8 + i/12.5))
+				put_pixel(start_point_x + n, start_point_y + i, 0x00CCFF00, map);
 			else
 				put_pixel(start_point_x + n, start_point_y + i, CROSSHAIR_COLOR, map);
 			i++;
@@ -196,6 +201,9 @@ void	refresh_screen(t_map *map)
 	}
 	else
 		put_big_minimap(map);
+	put_coin_img(map);
+	/*if (map->got_coin > 0)
+		put_coin_obtained();*/
 }
 
 static int	game_loop(t_map *map)
@@ -209,6 +217,8 @@ static int	game_loop(t_map *map)
 	map->anim += ANIM_SPEED;
 	if ((int)map->anim > ANIM6)
 		map->anim = ANIM1;
+	if (map->map[(int)map->player.y][(int)map->player.x] == '4' || map->got_coin > 0)
+		get_coin(map);
 	rotation = ft_map_values_f(map->player.pos_turn, SCREEN_WIDTH, 4) * 0.15;
 	map->player.dir = modulo_perso(map->player.dir + rotation, 4);
 	map->player.pos_turn = 0;
@@ -238,6 +248,7 @@ static int	game_loop(t_map *map)
 	}
 	refresh_screen(map);
 	mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->vars.screen, 0, 0);
+	put_coins(map);
 	return (0);
 }
 

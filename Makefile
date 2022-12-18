@@ -6,7 +6,7 @@
 #    By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 12:29:55 by mkoyamba          #+#    #+#              #
-#    Updated: 2022/12/17 20:22:06 by mkoyamba         ###   ########.fr        #
+#    Updated: 2022/12/18 12:23:42 by mkoyamba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,8 +70,9 @@ SRC_B +=\
 	events_utils_bonus.c\
 	raycasting_bonus.c\
 	raycasting_checks_bonus.c\
-	sprite_utils.c\
-	next_sprite.c\
+	coins_bonus.c\
+	sprite_utils_bonus.c\
+	next_sprite_bonus.c\
 
 #          ----------========== {     OBJS     } ==========----------
 
