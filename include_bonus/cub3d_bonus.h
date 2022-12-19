@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/18 13:13:55 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:32:45 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define COIN4 15
 # define COIN5 16
 # define COIN6 17
+# define GOAT_COIN 18
 
 # define BIG_COIN 6
 
@@ -70,6 +71,7 @@
 # define T_COIN4 "./textures/big_coin4.xpm"
 # define T_COIN5 "./textures/big_coin5.xpm"
 # define T_COIN6 "./textures/big_coin6.xpm"
+# define T_GOAT_COIN "./textures/goat_coin.xpm"
 
 //parsing
 # define E_MAP_SIZE "screen needs to be at least 250x250"

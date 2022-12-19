@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:41:20 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/08 11:49:02 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:54:43 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	textures_init_xpm(t_map *map)
 	while (n < 4)
 	{
 		map->img[n].ptr = mlx_xpm_file_to_image(map->vars.mlx, map->textures[n],
-						&(map->img[n].x), &(map->img[n].y));
+				&(map->img[n].x), &(map->img[n].y));
 		if (!map->img[n].ptr)
 		{
 			ft_putstr_fd("Error\ncub3d: No such texture file: ", 2);

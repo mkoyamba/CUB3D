@@ -6,11 +6,36 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:30:08 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 21:33:46 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:38:06 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include_bonus/exec_bonus.h"
+
+void	refresh_screen(t_map *map)
+{
+	int		n;
+	float	raydir;
+
+	n = 0;
+	while (n < SCREEN_WIDTH)
+	{
+		raydir = modulo_perso(map->player.dir
+				+ (n - SCREEN_WIDTH / 2) * 0.5 / SCREEN_WIDTH, 4);
+		raycast(n, map, raydir);
+		n += 2;
+	}
+	if (!map->minimap)
+	{
+		put_minimap(map);
+		put_crosshair(map);
+	}
+	else
+		put_big_minimap(map);
+	put_coin_img(map);
+	if (map->got_coin > 0)
+		put_coin_obtained(map);
+}
 
 float	new_colision_x(t_map *map)
 {
@@ -53,37 +78,17 @@ float	modulo_perso(float result, float modulo)
 
 void	manahge_door(t_map *map)
 {
-	float	posx;
-	float	posy;
-	float	test_len_ray;
 	float	dir;
 
 	dir = ft_map_values_f(map->player.dir, 4, 1);
 	map->player.open = 0;
-	raycast(SCREEN_WIDTH/2, map, map->player.dir);
+	raycast(SCREEN_WIDTH / 2, map, map->player.dir);
 	if ((map->column.type == '3' || map->column.type == '2')
-			&& map->column.raylen < 2.5)
+		&& map->column.raylen < 2.5)
 	{
-		test_len_ray = 0;
-		posx = map->player.x;
-		posy = map->player.y;
-		while (test_len_ray < 2.5)
-		{
-			test_len_ray += 0.01;
-			posx = sin(dir * M_PI * 2) * test_len_ray + map->player.x;
-			posy = (- cos(dir * M_PI * 2)) * test_len_ray + map->player.y;
-			if (map->map[(int)posy][(int)posx] == '3')
-			{
-				map->map[(int)posy][(int)posx] = '2';
-				break ;
-			}
-			else if (map->map[(int)posy][(int)posx] == '2')
-			{
-				map->map[(int)posy][(int)posx] = '3';
-				break ;
-			}
-		}
+		manahge_door_utils(map, dir);
 		refresh_screen(map);
-		mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->vars.screen, 0, 0);
+		mlx_put_image_to_window(
+			map->vars.mlx, map->vars.win, map->vars.screen, 0, 0);
 	}
 }

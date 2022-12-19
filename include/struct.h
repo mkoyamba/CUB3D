@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:25 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/08 12:00:34 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:32:16 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_map
 	int			wall_color;
 	float		wall_pos;
 	int			endian;
+	float		ray_len_v;
+	float		ray_len_h;
 }				t_map;
 
 #endif

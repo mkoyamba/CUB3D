@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:52:06 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/09 13:38:27 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:10:01 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@
 # define SPEED 0.1
 # define TURN_SPEED 0.03
 # define CUBE_SIZE 1.8
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 450
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 720
 # define COLLISION_LEN 0.25
 
 //          ----------========== {     FCTS     } ==========----------

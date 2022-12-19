@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:03:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/08 19:48:42 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:30:25 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,21 @@ float	new_pos_y(t_map *map);
 float	modulo_perso(float result, float modulo);
 void	raycast(int n, t_map *map, float raydir);
 float	ray_split_se(t_map *map, float raydir, float *x, float *y);
+float	return_check_se(t_map *map, float raydir, float *x, float *y);
 float	ray_split_sw(t_map *map, float raydir, float *x, float *y);
+float	return_check_sw(t_map *map, float raydir, float *x, float *y);
 float	ray_split_ne(t_map *map, float raydir, float *x, float *y);
+float	return_check_ne(t_map *map, float raydir, float *x, float *y);
 float	ray_split_nw(t_map *map, float raydir, float *x, float *y);
+float	return_check_nw(t_map *map, float raydir, float *x, float *y);
 int		is_in_map(float x, float y, t_map *map);
 float	get_move_dir(t_map *map);
 float	new_colision_x(t_map *map);
 float	new_colision_y(t_map *map);
 void	put_pixel(int x, int y, int color, t_map *map);
 int		ft_map_values(float value, float from, float to);
+int		switch_color(int color);
+void	raycast_draw_wall(int n, int i, t_map *map, int middle_part);
+void	set_wall_color(t_map *map, int n, int i);
 
 #endif

@@ -6,207 +6,128 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 12:42:59 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/18 14:03:21 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:06:06 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include_bonus/exec_bonus.h"
 
-void	print_full_sprite(
-			t_map *map, int posx, int middle_part)
+void	next_sprite_h(t_sprite *sprite, float raydir)
 {
-	int		i;
-	int		diff;
-	char	*img;
-	int		posy;
-	int		color;
-
-	i = 0;
-	img = mlx_get_data_addr (map->img[(int)map->anim].ptr,
-			&(map->img[(int)map->anim].bits_pixel),
-			&(map->img[(int)map->anim].size_line),
-			&(map->img[(int)map->anim].endian));
-	while (i < SCREEN_HEIGHT)
+	sprite->vx = sprite->current_vx;
+	sprite->vy = sprite->current_vy;
+	sprite->current_hx = sprite->hx;
+	sprite->current_hy = sprite->hy;
+	if (raydir >= 0 && raydir < M_PI)
 	{
-		diff = middle_part - SCREEN_HEIGHT;
-		posy = i + diff/2;
-		posy = (int)ft_map_values_f(posy, middle_part,
-			map->img[(int)map->anim].y - 1);
-		color = *(int *)(img
-			+ (4 * (map->img[(int)map->anim].x) * posy)
-			+ (4 * posx));
-		if (color == (int)EMPTY_COLOR)
-		{
-			i++;
-			continue ;
-		}
-		if (!map->img[(int)map->anim].endian)
-			put_pixel(map->column.n, i, switch_color(color), map);
-		else
-			put_pixel(map->column.n, i, color, map);
-		i++;
+		sprite->x = (int)sprite->current_hx;
+		sprite->y = (int)(sprite->current_hy - 0.000001);
 	}
-}
-
-
-void	print_sprite(t_map *map, int posx, float len_to_sprite)
-{
-	int		i;
-	int		middle_part;
-	char	*img;
-	int		posy;
-	int		color;
-
-	img = mlx_get_data_addr (map->img[(int)map->anim].ptr,
-			&(map->img[(int)map->anim].bits_pixel),
-			&(map->img[(int)map->anim].size_line),
-			&(map->img[(int)map->anim].endian));
-	middle_part = (int)((CUBE_SIZE * SCREEN_HEIGHT)/len_to_sprite);
-	if (middle_part >= SCREEN_HEIGHT)
-	{
-		print_full_sprite(map, posx, middle_part);
-		return ;
-	}
-	i = SCREEN_HEIGHT/2 - middle_part/2;
-	while (i < SCREEN_HEIGHT/2 + middle_part/2)
-	{
-		posy = ft_map_values(i - (SCREEN_HEIGHT/2 - middle_part/2),
-			SCREEN_HEIGHT/2 + middle_part/2 - (SCREEN_HEIGHT/2 - middle_part/2),
-			map->img[(int)map->anim].y - 1);
-		color = *(int *)(img
-			+ (4 * (map->img[(int)map->anim].x) * posy)
-			+ (4 * posx));
-		if (color == (int)EMPTY_COLOR)
-		{
-			i++;
-			continue ;
-		}
-		if (!map->img[(int)map->anim].endian)
-			put_pixel(map->column.n, i, switch_color(color), map);
-		else
-			put_pixel(map->column.n, i, color, map);
-		i++;
-	}
-}
-
-void	put_sprite(t_sprite *sprite, t_map *map, float raydir)
-{
-	float	len_to_middle;
-	float	angle_to_middle;
-	float	len_to_sprite;
-	float	pixel_pos;
-	float	angle_diff;
-
-	len_to_middle = sqrtf(powf(map->player.x - sprite->x - 0.5, 2)
-						+ powf(map->player.y - sprite->y - 0.5, 2));
-	if (map->player.y > sprite->y + 0.5)
-		angle_to_middle = M_PI - acosf((map->player.x - sprite->x - 0.5) / len_to_middle);
 	else
-		angle_to_middle = M_PI + acosf((map->player.x - sprite->x - 0.5) / len_to_middle);
-	if (raydir > M_PI)
-		raydir -= 2 * M_PI;
-	angle_diff =  raydir - angle_to_middle;
-	len_to_sprite = len_to_middle / cos(angle_diff);
-	pixel_pos = sin(angle_diff) * len_to_sprite;
-	if (pixel_pos > 0.5 || pixel_pos < - 0.5)
-		return ;
-	pixel_pos += 0.5;
-	pixel_pos = ft_map_values_f(pixel_pos, 1, map->img[(int)map->anim].x);
-	print_sprite(map, (int)pixel_pos, len_to_sprite);
+	{
+		sprite->x = (int)sprite->current_hx;
+		sprite->y = (int)(sprite->current_hy + 0.000001);
+	}
+}
+
+void	next_sprite_v(t_sprite *sprite, float raydir)
+{
+	sprite->hx = sprite->current_hx;
+	sprite->hy = sprite->current_hy;
+	sprite->current_vx = sprite->vx;
+	sprite->current_vy = sprite->vy;
+	if (raydir >= M_PI_2 && raydir < 3 * M_PI_2)
+	{
+		sprite->x = (int)(sprite->current_vx - 0.000001);
+		sprite->y = (int)sprite->current_vy;
+	}
+	else
+	{
+		sprite->x = (int)(sprite->current_vx + 0.000001);
+		sprite->y = (int)sprite->current_vy;
+	}
 }
 
 int	next_sprite(t_sprite *sprite, t_map *map, float raylen, float raydir)
 {
-	int	stateH;
-	int	stateV;
+	int	state_h;
+	int	state_v;
 
-	stateH = new_sprite_pos(raydir, sprite, HORIZONTAL, map);
-	stateV = new_sprite_pos(raydir, sprite, VERTICAL, map);
-	while (!stateH)
-		stateH = new_sprite_pos(raydir, sprite, HORIZONTAL, map);
-	while (!stateV)
-		stateV = new_sprite_pos(raydir, sprite, VERTICAL, map);
-	sprite->h_raylen = sqrtf(powf(sprite->start_x - sprite->Hx, 2)
-							+ powf(sprite->start_y - sprite->Hy, 2));
-	sprite->v_raylen = sqrtf(powf(sprite->start_x - sprite->Vx, 2)
-							+ powf(sprite->start_y - sprite->Vy, 2));
-	if ((stateH != 1 && stateV != 1)
-		|| (sprite->h_raylen >= raylen && sprite->v_raylen >= raylen))
-		return (0);
-	if (sprite->h_raylen > 0 && (sprite->h_raylen < sprite->v_raylen || sprite->v_raylen < 0))
+	state_h = new_sprite_pos(raydir, sprite, HORIZONTAL, map);
+	state_v = new_sprite_pos(raydir, sprite, VERTICAL, map);
+	while (!state_h)
+		state_h = new_sprite_pos(raydir, sprite, HORIZONTAL, map);
+	while (!state_v)
+		state_v = new_sprite_pos(raydir, sprite, VERTICAL, map);
+	sprite->h_raylen = sqrtf(powf(sprite->start_x - sprite->hx, 2)
+			+ powf(sprite->start_y - sprite->hy, 2));
+	sprite->v_raylen = sqrtf(powf(sprite->start_x - sprite->vx, 2)
+			+ powf(sprite->start_y - sprite->vy, 2));
+	if ((state_h != 1 && state_v != 1)
+		|| (sprite->h_raylen > raylen && sprite->v_raylen > raylen))
 	{
-		sprite->Vx = sprite->current_Vx;
-		sprite->Vy = sprite->current_Vy;
-		sprite->current_Hx = sprite->Hx;
-		sprite->current_Hy = sprite->Hy;
-		if (raydir >= 0 && raydir < M_PI)
-		{
-			sprite->x = (int)sprite->current_Hx;
-			sprite->y = (int)(sprite->current_Hy - 0.000001);
-		}
-		else
-		{
-			sprite->x = (int)sprite->current_Hx;
-			sprite->y = (int)(sprite->current_Hy + 0.000001);
-		}
+		return (0);
+	}
+	if ((state_v == -1) || (sprite->h_raylen > 0
+			&& (sprite->h_raylen < sprite->v_raylen || sprite->v_raylen < 0)))
+		next_sprite_h(sprite, raydir);
+	else
+		next_sprite_v(sprite, raydir);
+	return (1);
+}
+
+void	sprite_draw_utils(
+	t_map *map, float raylen, float *raydir, t_sprite *sprite)
+{
+	*raydir = modulo_perso(*raydir - 1, 4);
+	*raydir = -ft_map_values_f(*raydir, 4, 2 * M_PI);
+	*raydir = modulo_perso(*raydir, 2 * M_PI);
+	sprite->vx = map->player.x + raylen * cos(*raydir);
+	sprite->vy = map->player.y - raylen * sin(*raydir);
+	sprite->hx = sprite->vx;
+	sprite->hy = sprite->vy;
+	sprite->start_x = sprite->vx;
+	sprite->start_y = sprite->vy;
+	if (*raydir >= 0 && *raydir <= M_PI)
+	{
+		sprite->hx += (sprite->hy - (int)sprite->hy) / tan(*raydir);
+		sprite->hy = (int)sprite->hy;
+		sprite->hx += 0.2 / tan(*raydir);
+		sprite->hy -= 0.2;
 	}
 	else
 	{
-		sprite->Hx = sprite->current_Hx;
-		sprite->Hy = sprite->current_Hy;
-		sprite->current_Vx = sprite->Vx;
-		sprite->current_Vy = sprite->Vy;
-		if (raydir >= M_PI_2 && raydir < 3 * M_PI_2)
-		{
-			sprite->x = (int)(sprite->current_Vx - 0.000001);
-			sprite->y = (int)sprite->current_Vy;
-		}
-		else
-		{
-			sprite->x = (int)(sprite->current_Vx + 0.000001);
-			sprite->y = (int)sprite->current_Vy;
-		}
+		sprite->hx -= (1 - sprite->hy + (int)sprite->hy) / tan(*raydir);
+		sprite->hy = (int)sprite->hy + 1;
+		sprite->hx -= 0.2 / tan(*raydir);
+		sprite->hy += 0.2;
 	}
-	return (1);
 }
 
 void	sprite_draw(t_map *map, float raylen, float raydir)
 {
 	t_sprite	sprite;
 
-	raydir = modulo_perso(raydir - 1, 4);
-	raydir = - ft_map_values_f(raydir, 4, 2 * M_PI);
-	raydir = modulo_perso(raydir, 2 * M_PI);
-	sprite.Vx = map->player.x + raylen * cos(raydir);
-	sprite.Vy = map->player.y - raylen * sin(raydir);
-	sprite.Hx = sprite.Vx;
-	sprite.Hy = sprite.Vy;
-	sprite.start_x = sprite.Vx;
-	sprite.start_y = sprite.Vy;
-	if (raydir >= 0 && raydir <= M_PI)
-	{
-		sprite.Hx += (sprite.Hy - (int)sprite.Hy) / tan(raydir);
-		sprite.Hy = (int)sprite.Hy;
-	}
-	else
-	{
-		sprite.Hx -= (1 - sprite.Hy + (int)sprite.Hy) / tan(raydir);
-		sprite.Hy = (int)sprite.Hy + 1;
-	}
+	sprite_draw_utils(map, raylen, &raydir, &sprite);
 	if (raydir >= M_PI_2 && raydir <= 3 * M_PI_2)
 	{
-		sprite.Vy += (sprite.Vx - (int)sprite.Vx) * tan(raydir);
-		sprite.Vx = (int)sprite.Vx;
+		sprite.vy += (sprite.vx - (int)sprite.vx) * tan(raydir);
+		sprite.vx = (int)sprite.vx;
+		sprite.vy += 0.2 * tan(raydir);
+		sprite.vx -= 0.2;
 	}
 	else
 	{
-		sprite.Vy -= (1 - sprite.Vx + (int)sprite.Vx) * tan(raydir);
-		sprite.Vx = (int)sprite.Vx + 1;
+		sprite.vy -= (1 - sprite.vx + (int)sprite.vx) * tan(raydir);
+		sprite.vx = (int)sprite.vx + 1;
+		sprite.vx += 0.2;
+		sprite.vy -= 0.2 * tan(raydir);
 	}
-	sprite.current_Vx = sprite.Vx;
-	sprite.current_Vy = sprite.Vy;
-	sprite.current_Hx = sprite.Hx;
-	sprite.current_Hy = sprite.Hy;
-	while (next_sprite(&sprite, map, raylen, modulo_perso(raydir - M_PI, 2 * M_PI)) > 0)
+	sprite.current_vx = sprite.vx;
+	sprite.current_vy = sprite.vy;
+	sprite.current_hx = sprite.hx;
+	sprite.current_hy = sprite.hy;
+	while (next_sprite(&sprite, map, raylen,
+			modulo_perso(raydir - M_PI, 2 * M_PI)) > 0)
 		put_sprite(&sprite, map, raydir);
 }

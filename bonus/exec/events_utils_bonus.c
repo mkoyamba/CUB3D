@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:29:59 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/14 16:04:07 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:58:04 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	mouse_move(int x, int y, t_map *map)
 {
 	(void)y;
 	if (x >= 0 && x <= SCREEN_WIDTH)
-		map->player.pos_turn = x - SCREEN_WIDTH/2;
+		map->player.pos_turn = x - SCREEN_WIDTH / 2;
 	else if (x < 0)
 		map->player.pos_turn = 0;
 	else
 		map->player.pos_turn = SCREEN_WIDTH;
-	mlx_mouse_move(map->vars.win, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+	mlx_mouse_move(map->vars.win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:58:03 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/18 13:13:02 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:34:46 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	set_int_color(int *result, char **colors)
 	unsigned char	g;
 	unsigned char	b;
 	unsigned char	*buf;
-	
+
 	r = (unsigned char)ft_atoi(colors[0]);
 	g = (unsigned char)ft_atoi(colors[1]);
 	b = (unsigned char)ft_atoi(colors[2]);
@@ -48,6 +48,25 @@ int	get_colors_parsing(char *line, t_map *map, char c)
 	return (1);
 }
 
+static	void	textures_init_macros(t_map *map)
+{
+	map->textures[CLOSED] = T_CLOSED;
+	map->textures[OPENED] = T_OPENED;
+	map->textures[ANIM1] = T_ANIM1;
+	map->textures[ANIM2] = T_ANIM2;
+	map->textures[ANIM3] = T_ANIM3;
+	map->textures[ANIM4] = T_ANIM4;
+	map->textures[ANIM5] = T_ANIM5;
+	map->textures[ANIM6] = T_ANIM6;
+	map->textures[COIN1] = T_COIN1;
+	map->textures[COIN2] = T_COIN2;
+	map->textures[COIN3] = T_COIN3;
+	map->textures[COIN4] = T_COIN4;
+	map->textures[COIN5] = T_COIN5;
+	map->textures[COIN6] = T_COIN6;
+	map->textures[GOAT_COIN] = T_GOAT_COIN;
+}
+
 int	get_textures_parsing(t_map *map, char **readed)
 {
 	char	*text[5];
@@ -72,19 +91,6 @@ int	get_textures_parsing(t_map *map, char **readed)
 			map->textures[n][ft_strlen(map->textures[n]) - 1] = '\0';
 		n++;
 	}
-	map->textures[CLOSED] = T_CLOSED;
-	map->textures[OPENED] = T_OPENED;
-	map->textures[ANIM1] = T_ANIM1;
-	map->textures[ANIM2] = T_ANIM2;
-	map->textures[ANIM3] = T_ANIM3;
-	map->textures[ANIM4] = T_ANIM4;
-	map->textures[ANIM5] = T_ANIM5;
-	map->textures[ANIM6] = T_ANIM6;
-	map->textures[COIN1] = T_COIN1;
-	map->textures[COIN2] = T_COIN2;
-	map->textures[COIN3] = T_COIN3;
-	map->textures[COIN4] = T_COIN4;
-	map->textures[COIN5] = T_COIN5;
-	map->textures[COIN6] = T_COIN6;
+	textures_init_macros(map);
 	return (1);
 }

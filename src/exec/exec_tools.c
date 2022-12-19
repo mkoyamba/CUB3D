@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:22:55 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/08 19:48:36 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:18:07 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,22 @@ int	is_in_map(float x, float y, t_map *map)
 	return (1);
 }
 
+int	switch_color(int color)
+{
+	unsigned char	*color_buf;
+	unsigned char	temp;
+
+	color_buf = (unsigned char *)&color;
+	temp = color_buf[3];
+	color_buf[3] = color_buf[0];
+	color_buf[0] = temp;
+	temp = color_buf[1];
+	color_buf[1] = color_buf[2];
+	color_buf[2] = temp;
+	return (color);
+}
+
 int	ft_map_values(float value, float from, float to)
 {
-	return(value / from * to);
+	return (value / from * to);
 }

@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:22:55 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/18 12:40:55 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:11:25 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	is_in_map(float x, float y, t_map *map)
 
 int	ft_map_values(float value, float from, float to)
 {
-	return(value / from * to);
+	return (value / from * to);
 }
 
 float	ft_map_values_f(float value, float from, float to)
 {
-	return(value / from * to);
+	return (value / from * to);
 }
 
 int	is_valid_pos(t_map *map, float x, float y)
@@ -39,28 +39,6 @@ int	is_valid_pos(t_map *map, float x, float y)
 	else if (map->map[(int)y][(int)x] != '4')
 		return (2);
 	return (1);
-}
-
-int	is_wall(t_map *map, float x, float y)
-{
-	if (map->map[(int)y][(int)x] != '1')
-		return (0);
-	return (1);
-}
-
-int	is_door(t_map *map, float x, float y)
-{
-	if (map->map[(int)y][(int)x] != '2' && map->map[(int)y][(int)x] != '3')
-		return (0);
-	return (1);
-}
-
-int	is_coin(t_map *map, float x, float y)
-{
-	if (map->map[(int)y][(int)x] == '4'
-		&& sqrtf((powf(x - (int)x - 0.5, 2)) + (powf(y - (int)y - 0.5, 2))) < 0.2)
-		return (1);
-	return (0);
 }
 
 int	is_valid_pos_player(t_map *map, float x, float y)

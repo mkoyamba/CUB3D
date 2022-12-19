@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:41:20 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/18 13:11:59 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:33:38 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_textures_xpm(t_map *map)
 	int	n;
 
 	n = 0;
-	while (n < 12)
+	while (n < 19)
 	{
 		if (map->img[n].ptr)
 			mlx_destroy_image(map->vars.mlx, map->img[n].ptr);
@@ -30,10 +30,10 @@ int	textures_init_xpm(t_map *map)
 	int	n;
 
 	n = 0;
-	while (n < 18)
+	while (n < 19)
 	{
 		map->img[n].ptr = mlx_xpm_file_to_image(map->vars.mlx, map->textures[n],
-						&(map->img[n].x), &(map->img[n].y));
+				&(map->img[n].x), &(map->img[n].y));
 		if (!map->img[n].ptr)
 		{
 			ft_putstr_fd("Error\ncub3d: No such texture file: ", 2);

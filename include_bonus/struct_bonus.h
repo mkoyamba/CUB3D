@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:25 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/18 13:14:00 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:33:21 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,25 @@ typedef struct s_column
 {
 	int		height;
 	int		start;
-	char	typeV;
-	char	typeH;
+	char	typev;
+	char	typeh;
 	char	type;
 	float	raylen;
 	int		is_sprite;
 	int		n;
+	int		first_sprite;
 }				t_column;
 
 typedef struct s_sprite
 {
-	float	current_Hx;
-	float	current_Hy;
-	float	Hx;
-	float	Hy;
-	float	current_Vx;
-	float	current_Vy;
-	float	Vx;
-	float	Vy;
+	float	current_hx;
+	float	current_hy;
+	float	hx;
+	float	hy;
+	float	current_vx;
+	float	current_vy;
+	float	vx;
+	float	vy;
 	float	start_x;
 	float	start_y;
 	float	h_raylen;
@@ -87,8 +88,8 @@ typedef struct s_map
 	t_player	player;
 	t_column	column;
 	char		**map;
-	char		*textures[18];
-	t_img		img[18];
+	char		*textures[19];
+	t_img		img[19];
 	int			floor;
 	int			ceiling;
 	char		*buffer;
@@ -101,6 +102,8 @@ typedef struct s_map
 	float		anim;
 	float		got_coin;
 	int			coins;
+	float		ray_len_v;
+	float		ray_len_h;
 }				t_map;
 
 #endif

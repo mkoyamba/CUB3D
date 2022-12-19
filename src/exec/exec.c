@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:55:09 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/07 19:13:18 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:31:17 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,36 @@ static void	refresh_screen(t_map *map)
 	while (n < SCREEN_WIDTH)
 	{
 		raydir = modulo_perso(
-				map->player.dir + (n - SCREEN_WIDTH/2) * 0.5 / SCREEN_WIDTH, 4);
+				map->player.dir
+				+ (n - SCREEN_WIDTH / 2) * 0.5 / SCREEN_WIDTH, 4);
 		raycast(n, map, raydir);
-		n++;
+		n += 2;
+	}
+}
+
+static void	game_loop_new_pos(t_map *map, float posx, float posy)
+{
+	if (is_valid_pos(map, map->player.x + new_colision_x(map),
+			map->player.y + new_colision_y(map)))
+	{
+		map->player.x = posx;
+		map->player.y = posy;
+		map->refresh = 1;
+	}
+	else
+	{
+		if (is_valid_pos(map, map->player.x + new_colision_x(map),
+				map->player.y))
+		{
+			map->player.x = posx;
+			map->refresh = 1;
+		}
+		else if (is_valid_pos(map, map->player.x,
+				map->player.y + new_colision_y(map)))
+		{
+			map->player.y = posy;
+			map->refresh = 1;
+		}
 	}
 }
 
@@ -36,7 +63,7 @@ static int	game_loop(t_map *map)
 	if (map->player.trigo - map->player.antitrigo)
 	{
 		map->player.dir = modulo_perso(map->player.dir
-			+ (map->player.antitrigo - map->player.trigo) * TURN_SPEED, 4);
+				+ (map->player.antitrigo - map->player.trigo) * TURN_SPEED, 4);
 		map->refresh = 1;
 	}
 	if (map->player.forward || map->player.backward || map->player.right
@@ -44,34 +71,14 @@ static int	game_loop(t_map *map)
 	{
 		posx = map->player.x + new_pos_x(map);
 		posy = map->player.y + new_pos_y(map);
-		if (is_valid_pos(map, map->player.x + new_colision_x(map),
-					map->player.y + new_colision_y(map)))
-		{
-			map->player.x = posx;
-			map->player.y = posy;
-			map->refresh = 1;
-		}
-		else
-		{
-			if (is_valid_pos(map, map->player.x + new_colision_x(map),
-					map->player.y))
-			{
-				map->player.x = posx;
-				map->refresh = 1;
-			}
-			else if (is_valid_pos(map, map->player.x,
-						map->player.y + new_colision_y(map)))
-			{
-				map->player.y = posy;
-				map->refresh = 1;
-			}
-		}
+		game_loop_new_pos(map, posx, posy);
 	}
 	if (map->refresh == 1)
 	{
 		map->refresh = 0;
 		refresh_screen(map);
-		mlx_put_image_to_window(map->vars.mlx, map->vars.win, map->vars.screen, 0, 0);
+		mlx_put_image_to_window(
+			map->vars.mlx, map->vars.win, map->vars.screen, 0, 0);
 	}
 	return (0);
 }
@@ -91,13 +98,14 @@ int	new_game(t_map *map)
 	if (!textures_init_xpm(map))
 		return (1);
 	map->vars.win = mlx_new_window(
-				map->vars.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3d");
+			map->vars.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3d");
 	mlx_hook(map->vars.win, 17, 0, end_exec, map);
 	mlx_hook(map->vars.win, 2, 0, event_key_pressed, map);
 	mlx_hook(map->vars.win, 3, 0, event_key_released, map);
 	map->vars.screen = mlx_new_image(
-				map->vars.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	map->buffer = mlx_get_data_addr(map->vars.screen, &(map->pixel_bits), &(map->line_bytes), &(map->endian));
+			map->vars.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	map->buffer = mlx_get_data_addr(map->vars.screen,
+			&(map->pixel_bits), &(map->line_bytes), &(map->endian));
 	mlx_loop_hook(map->vars.mlx, game_loop, map);
 	mlx_loop(map->vars.mlx);
 	return (0);

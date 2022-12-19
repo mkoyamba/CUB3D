@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:58:03 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/07 14:56:36 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:54:14 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	set_int_color(int *result, char **colors)
 	unsigned char	g;
 	unsigned char	b;
 	unsigned char	*buf;
-	
+
 	r = (unsigned char)ft_atoi(colors[0]);
 	g = (unsigned char)ft_atoi(colors[1]);
 	b = (unsigned char)ft_atoi(colors[2]);

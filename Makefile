@@ -6,7 +6,7 @@
 #    By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 12:29:55 by mkoyamba          #+#    #+#              #
-#    Updated: 2022/12/18 12:23:42 by mkoyamba         ###   ########.fr        #
+#    Updated: 2022/12/19 18:45:51 by mkoyamba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = cub3d
 CC = cc
-FLAGS = -Wall -Wextra -Werror -Imlx -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -Imlx
 MLX_FLAGS = -framework OpenGL -framework AppKit
 INCLUDE = -I include/cub3d.h
 INCLUDE_B = -I include_bonus/cub3d_bonus.h
@@ -39,13 +39,14 @@ SRC +=\
 
 # exec
 SRC +=\
-	exec.c\
-	exec_utils.c\
-	exec_tools.c\
-	events.c\
 	events_utils.c\
-	raycasting.c\
+	events.c\
+	exec_tools.c\
+	exec_utils.c\
+	exec.c\
 	raycasting_checks.c\
+	raycasting_utils.c\
+	raycasting.c\
 
 SRC_B = main_bonus.c\
 
@@ -69,10 +70,15 @@ SRC_B +=\
 	events_bonus.c\
 	events_utils_bonus.c\
 	raycasting_bonus.c\
+	raycasting_utils_bonus.c\
 	raycasting_checks_bonus.c\
 	coins_bonus.c\
 	sprite_utils_bonus.c\
 	next_sprite_bonus.c\
+	put_sprite_bonus.c\
+	exec_more_utils_bonus.c\
+	exec_too_much_utils_bonus.c\
+	put_crosshair_bonus.c
 
 #          ----------========== {     OBJS     } ==========----------
 

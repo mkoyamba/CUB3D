@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:03:15 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/12/18 13:27:37 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:08:16 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 //          ----------========== {     FCTS     } ==========----------
 
-int		new_game(t_map *map);
+int		game_loop(t_map *map);
 void	refresh_screen(t_map *map);
 int		end_exec(t_map *map);
 void	event_left_arrow(t_map *map);
@@ -42,9 +42,13 @@ void	manahge_door(t_map *map);
 float	modulo_perso(float result, float modulo);
 void	raycast(int n, t_map *map, float raydir);
 float	ray_split_se(t_map *map, float raydir, float *x, float *y);
+float	return_check_se(t_map *map, float raydir, float *x, float *y);
 float	ray_split_sw(t_map *map, float raydir, float *x, float *y);
+float	return_check_sw(t_map *map, float raydir, float *x, float *y);
 float	ray_split_ne(t_map *map, float raydir, float *x, float *y);
+float	return_check_ne(t_map *map, float raydir, float *x, float *y);
 float	ray_split_nw(t_map *map, float raydir, float *x, float *y);
+float	return_check_nw(t_map *map, float raydir, float *x, float *y);
 int		is_in_map(float x, float y, t_map *map);
 float	get_move_dir(t_map *map);
 float	new_colision_x(t_map *map);
@@ -58,5 +62,15 @@ int		new_sprite_pos(float raydir, t_sprite *sprite, int mode, t_map *map);
 void	get_coin(t_map *map);
 void	put_coins(t_map *map);
 void	put_coin_img(t_map *map);
+void	put_coin_obtained(t_map *map);
+void	manahge_door_utils(t_map *map, float dir);
+void	put_sprite(t_sprite *sprite, t_map *map, float raydir);
+void	wall_color_img(t_map *map, char **img);
+void	raycast_utils(t_map *map, int middle_part, float raylen, float raydir);
+void	set_wall_color(t_map *map, int n, int i);
+void	put_big_minimap(t_map *map);
+void	put_minimap(t_map *map);
+void	put_crosshair(t_map *map);
+void	print_coin_obtained(t_map *map, char *img, int n);
 
 #endif
