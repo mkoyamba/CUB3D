@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkoyamba <mkoyamba@student.s19.be>         +#+  +:+       +#+        */
+/*   By: bade-lee <bade-lee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 20:05:56 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/09/06 11:53:10 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2023/01/09 10:10:39 by bade-lee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static char	*check_zero(char **map, size_t n, size_t i)
 		return (E_CLOSED_MAP);
 	if (map[n - 1][i - 1] == ' ' || map[n + 1][i + 1] == ' '
 		|| map[n - 1][i + 1] == ' ' || map[n + 1][i - 1] == ' ')
+		return (E_CLOSED_MAP);
+	if (map[n - 1][i - 1] == '\n' || map[n + 1][i + 1] == '\n'
+		|| map[n - 1][i + 1] == '\n' || map[n + 1][i - 1] == '\n')
 		return (E_CLOSED_MAP);
 	return (NULL);
 }
